@@ -58,14 +58,11 @@ export const BoardPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0d0e11] text-slate-100 flex flex-col relative overflow-hidden">
-      {/* Background Gradient Glow behind header */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-80 bg-header-glow pointer-events-none -z-10" />
-
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)] flex flex-col relative overflow-hidden">
       {/* Configuration Advisory Banner (only if placeholder keys are used in dev) */}
       {!isConfigured && (
-        <div className="bg-gradient-to-r from-blue-900/60 to-violet-900/60 border-b border-blue-500/20 px-4 py-2 text-center text-xs text-blue-200 backdrop-blur-md flex items-center justify-center gap-2">
-          <span>⚡ Running in local development mode. Plug in Supabase keys in <code>.env</code> to connect live cloud PostgreSQL.</span>
+        <div className="bg-[var(--line)] text-[var(--bg)] border-b-2 border-[var(--accent)] px-4 py-2 text-center text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+          <span>⚡ Running in local demo mode. Configure Supabase credentials in <code>.env</code> for live cloud PostgreSQL.</span>
         </div>
       )}
 

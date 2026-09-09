@@ -8,39 +8,38 @@ interface EmptyStateProps {
 
 export const EmptyState: React.FC<EmptyStateProps> = ({ onCreateList }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[480px] w-full p-6 text-center">
+    <div className="flex flex-col items-center justify-center min-h-[440px] w-full p-6 text-center">
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2 }}
-        className="flex flex-col items-center max-w-sm p-6 rounded-xl linear-surface"
+        className="flex flex-col items-center max-w-sm p-8 editorial-card bg-[var(--bg)]"
       >
-        <div className="w-10 h-10 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mb-4 text-slate-400">
-          <Layers className="w-5 h-5" />
+        <div className="w-12 h-12 border-2 border-[var(--line)] bg-[var(--surface)] flex items-center justify-center mb-5 text-[var(--accent)]">
+          <Layers className="w-6 h-6 stroke-[2.5]" />
         </div>
 
-        <h3 className="text-sm font-semibold text-white mb-1.5">
-          No lists yet
+        <h3 className="font-heading text-lg font-black uppercase tracking-tight text-[var(--fg)] mb-2">
+          No Columns Active
         </h3>
         
-        <p className="text-xs text-slate-400 mb-5 leading-relaxed">
-          Create a list like Engineering, Backlog, or Personal to start organizing your issues.
+        <p className="text-xs text-[var(--muted)] mb-6 leading-relaxed">
+          Create a list column such as Product, Backlog, or Operations to structure your sprint workflow.
         </p>
 
         <button
           onClick={onCreateList}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white text-black hover:bg-slate-100 font-medium text-xs shadow-xs transition-colors cursor-pointer"
+          className="editorial-btn-primary flex items-center gap-2"
         >
-          <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-          <span>Create list</span>
+          <Plus className="w-4 h-4 stroke-[3]" />
+          <span>Create Column</span>
         </button>
 
-        <div className="mt-5 flex items-center gap-1.5 text-[11px] text-slate-500 font-mono">
-          <span>Press</span>
-          <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 text-[10px]">
+        <div className="mt-6 pt-4 border-t-2 border-[var(--line)] w-full flex items-center justify-center gap-2 text-[10px] text-[var(--muted)] font-mono font-bold uppercase tracking-wider">
+          <span>SHORTCUT:</span>
+          <kbd className="px-1.5 py-0.5 border border-[var(--line)] bg-[var(--surface)] text-[var(--fg)]">
             ⌘K
           </kbd>
-          <span>for commands</span>
         </div>
       </motion.div>
     </div>

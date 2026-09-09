@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Plus, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { useBoard } from '../../contexts/BoardContext';
 import type { TaskItem } from '../../types';
 import { cn } from '../../lib/utils';
@@ -96,33 +96,33 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
   };
 
   return (
-    <div className="flex-1 flex flex-col p-6 overflow-hidden">
+    <div className="flex-1 flex flex-col p-4 sm:p-6 overflow-hidden font-mono select-none">
       {/* Calendar Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-        <div className="flex items-center gap-2.5">
-          <div className="flex items-center bg-white/[0.04] border border-white/[0.08] rounded-lg p-0.5">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center editorial-border">
             <button
               onClick={prevWeek}
-              className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors cursor-pointer"
+              className="p-1.5 text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
             >
-              <ChevronLeft className="w-3.5 h-3.5" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextWeek}
-              className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors cursor-pointer"
+              className="p-1.5 text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer border-l-2 border-[var(--line)]"
             >
-              <ChevronRight className="w-3.5 h-3.5" />
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
           <button
             onClick={goToToday}
-            className="px-2.5 py-1 text-xs font-medium rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-slate-200 transition-colors cursor-pointer"
+            className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider editorial-border text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
           >
             Today
           </button>
 
-          <span className="text-xs font-semibold text-slate-200 tracking-tight">
+          <span className="text-xs font-bold uppercase tracking-wider text-[var(--fg)]">
             {weekDays[0].toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} –{' '}
             {weekDays[6].toLocaleDateString(undefined, {
               month: 'short',
@@ -132,14 +132,14 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-[11px] text-slate-500">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+        <div className="flex items-center gap-2 text-[11px] text-[var(--muted-3)] uppercase">
+          <span className="w-2 h-2 rounded-full bg-[var(--accent)] inline-block" />
           <span>Drag tasks between days to reschedule</span>
         </div>
       </div>
 
       {/* 7-Day Grid */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-7 gap-2.5 min-h-0 overflow-y-auto">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-7 gap-3 min-h-0 overflow-y-auto">
         {weekDays.map((day, idx) => {
           const dayTasks = getTasksForDate(day);
           const today = isToday(day);
@@ -153,20 +153,20 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, day)}
               className={cn(
-                'flex flex-col rounded-xl linear-surface p-3 min-h-[360px] relative transition-all',
-                today && 'border-blue-500/40 bg-blue-500/[0.02]'
+                'flex flex-col editorial-border-thick bg-[var(--card-bg)] p-3 min-h-[360px] relative transition-all',
+                today && 'border-[var(--accent)]'
               )}
             >
               {/* Day Header */}
-              <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/[0.05]">
+              <div className="flex items-center justify-between pb-2 mb-2 editorial-border-b">
                 <div>
-                  <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]">
                     {dayName}
                   </div>
                   <div
                     className={cn(
-                      'text-base font-bold mt-0.5 tracking-tight',
-                      today ? 'text-blue-400' : 'text-slate-200'
+                      'text-xl font-heading font-bold mt-0.5',
+                      today ? 'text-[var(--accent)]' : 'text-[var(--fg)]'
                     )}
                   >
                     {dayNumber}
@@ -176,7 +176,7 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
                 <button
                   onClick={() => onQuickAddForDate(dayIso)}
                   title="Add task for this date"
-                  className="p-1 rounded-md text-slate-500 hover:text-white hover:bg-white/[0.06] transition-colors cursor-pointer"
+                  className="p-1 editorial-border text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
@@ -190,16 +190,16 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
                     top: `${Math.min(Math.max((currentTimeMinutes / 1440) * 100, 15), 90)}%`,
                   }}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-xs -ml-0.5" />
-                  <div className="flex-1 border-t border-rose-500/80" />
+                  <span className="w-2 h-2 rounded-full bg-[var(--accent)] -ml-1" />
+                  <div className="flex-1 border-t-2 border-[var(--accent)]" />
                 </div>
               )}
 
               {/* Task Cards for the Day */}
-              <div className="flex-1 space-y-1.5 overflow-y-auto">
+              <div className="flex-1 space-y-2 overflow-y-auto">
                 {dayTasks.length === 0 ? (
                   <div className="h-full flex items-center justify-center text-center p-3">
-                    <span className="text-[10px] text-slate-600">No tasks</span>
+                    <span className="text-[10px] uppercase font-bold text-[var(--muted-3)]">No tasks</span>
                   </div>
                 ) : (
                   dayTasks.map((t) => {
@@ -210,23 +210,19 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
                         draggable
                         onDragStart={(e) => handleDragStart(e, t.id)}
                         className={cn(
-                          'group p-2 rounded-lg border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/[0.1] cursor-grab active:cursor-grabbing transition-all shadow-xs',
-                          t.completed && 'opacity-40 line-through'
+                          'group p-2 editorial-border bg-[var(--bg)] hover:bg-[var(--hover-bg)] cursor-grab active:cursor-grabbing transition-all text-xs',
+                          t.completed && 'opacity-50 line-through'
                         )}
-                        style={{ borderLeft: `2.5px solid ${color}` }}
+                        style={{ borderLeft: `3px solid ${color}` }}
                       >
-                        <div className="flex items-start justify-between gap-1.5">
-                          <span className="text-xs font-normal text-slate-300 leading-snug">
+                        <div className="flex items-start justify-between gap-2">
+                          <span className="text-xs font-mono text-[var(--fg)] leading-snug">
                             {t.title}
                           </span>
                           <button
                             onClick={() => toggleTaskCompleted(t.id)}
-                            className="text-slate-600 hover:text-emerald-400 p-0.5 rounded transition-colors cursor-pointer"
-                          >
-                            <CheckCircle2
-                              className={cn('w-3 h-3', t.completed && 'text-emerald-400')}
-                            />
-                          </button>
+                            className={cn('task-box', t.completed && 'done')}
+                          />
                         </div>
                       </div>
                     );

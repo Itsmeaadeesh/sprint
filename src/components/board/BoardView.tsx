@@ -155,8 +155,8 @@ export const BoardView: React.FC<BoardViewProps> = ({ onCreateListModalOpen }) =
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex-1 overflow-x-auto overflow-y-hidden p-4 sm:p-5">
-        <div className="flex items-start gap-4 min-w-max pb-4">
+      <div className="flex-1 overflow-x-auto overflow-y-hidden p-4 sm:p-6 font-mono">
+        <div className="flex items-start gap-5 min-w-max pb-4">
           <SortableContext
             items={displayedLists.map((l) => l.id)}
             strategy={horizontalListSortingStrategy}
@@ -170,14 +170,14 @@ export const BoardView: React.FC<BoardViewProps> = ({ onCreateListModalOpen }) =
             ))}
           </SortableContext>
 
-          {/* Minimalist Linear Add List button */}
+          {/* Brutalist Add List button */}
           {selectedListId === 'all' && (
             <button
               onClick={onCreateListModalOpen}
-              className="w-72 h-10 flex-shrink-0 rounded-lg border border-dashed border-white/[0.1] hover:border-white/20 hover:bg-white/[0.02] flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200 text-xs font-medium transition-colors cursor-pointer"
+              className="w-80 h-12 flex-shrink-0 editorial-border border-dashed hover:bg-[var(--hover-bg)] flex items-center justify-center gap-2 text-[var(--fg)] text-xs uppercase tracking-wider font-bold transition-colors cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5" />
-              <span>New list</span>
+              <Plus className="w-4 h-4" />
+              <span>+ New list</span>
             </button>
           )}
         </div>

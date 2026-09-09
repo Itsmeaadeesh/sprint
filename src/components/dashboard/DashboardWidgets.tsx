@@ -23,64 +23,64 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({ onQuickAdd: 
   if (totalTasks === 0) return null;
 
   return (
-    <div className="px-4 sm:px-6 pt-3 pb-1 border-b border-white/[0.05] bg-[#0b0c11]">
-      <div className="flex items-center justify-between pb-2">
-        <div className="flex items-center gap-6 overflow-x-auto text-xs">
+    <div className="px-4 sm:px-6 py-2.5 editorial-border-b bg-[var(--bg)] font-mono text-xs select-none">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
           {/* Progress metric */}
-          <div className="flex items-center gap-2">
-            <div className="w-16 bg-white/10 h-1.5 rounded-full overflow-hidden">
+          <div className="flex items-center gap-2.5">
+            <div className="w-20 bg-transparent editorial-border h-3 p-[1px]">
               <div
-                className="bg-indigo-500 h-full rounded-full transition-all duration-500"
+                className="bg-[var(--accent)] h-full transition-all duration-300"
                 style={{ width: `${completionPct}%` }}
               />
             </div>
-            <span className="font-mono text-[11px] text-slate-400">
+            <span className="font-bold text-[11px] uppercase tracking-wider text-[var(--fg)]">
               {completionPct}% resolved
             </span>
           </div>
 
-          <div className="w-px h-3 bg-white/10" />
+          <div className="w-px h-3.5 bg-[var(--line)]" />
 
           {/* Open Issues */}
-          <div className="flex items-center gap-1.5 text-slate-400">
-            <span className="font-mono font-medium text-slate-200">{openTasks.length}</span>
-            <span className="text-[11px]">open</span>
+          <div className="flex items-center gap-1.5 text-[var(--muted)]">
+            <span className="font-bold text-[var(--fg)]">{openTasks.length}</span>
+            <span className="uppercase text-[10px] tracking-wider">open</span>
           </div>
 
           {/* Due Today / Overdue */}
-          <div className="flex items-center gap-1.5 text-slate-400">
-            <Clock className="w-3.5 h-3.5 text-amber-400" />
-            <span className="font-mono font-medium text-slate-200">{dueTodayTasks.length}</span>
-            <span className="text-[11px]">today</span>
+          <div className="flex items-center gap-1.5 text-[var(--muted)]">
+            <Clock className="w-3.5 h-3.5 text-[var(--accent)]" />
+            <span className="font-bold text-[var(--fg)]">{dueTodayTasks.length}</span>
+            <span className="uppercase text-[10px] tracking-wider">today</span>
             {overdueTasks.length > 0 && (
-              <span className="text-[10px] text-rose-400 font-mono ml-1">
-                ({overdueTasks.length} overdue)
+              <span className="text-[10px] text-[var(--accent)] font-bold ml-1 uppercase">
+                [{overdueTasks.length} overdue]
               </span>
             )}
           </div>
 
           {/* High Priority */}
           {highPriorityTasks.length > 0 && (
-            <div className="flex items-center gap-1.5 text-slate-400">
-              <AlertCircle className="w-3.5 h-3.5 text-rose-400" />
-              <span className="font-mono font-medium text-slate-200">{highPriorityTasks.length}</span>
-              <span className="text-[11px]">urgent</span>
+            <div className="flex items-center gap-1.5 text-[var(--accent)]">
+              <AlertCircle className="w-3.5 h-3.5" />
+              <span className="font-bold">{highPriorityTasks.length}</span>
+              <span className="uppercase text-[10px] tracking-wider">urgent</span>
             </div>
           )}
 
           {/* Completed */}
-          <div className="flex items-center gap-1.5 text-slate-400">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="font-mono font-medium text-slate-200">{completedTasks.length}</span>
-            <span className="text-[11px]">completed</span>
+          <div className="flex items-center gap-1.5 text-[var(--muted)]">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[var(--fg)]" />
+            <span className="font-bold text-[var(--fg)]">{completedTasks.length}</span>
+            <span className="uppercase text-[10px] tracking-wider">completed</span>
           </div>
         </div>
 
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="text-slate-500 hover:text-slate-400 p-0.5 rounded text-xs transition-colors cursor-pointer"
+          className="text-[var(--muted-3)] hover:text-[var(--fg)] p-1 text-xs cursor-pointer editorial-border ml-2"
         >
-          {collapsed ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
+          {collapsed ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />}
         </button>
       </div>
     </div>

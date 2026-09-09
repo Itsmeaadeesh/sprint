@@ -13,20 +13,20 @@ export const Toast: React.FC<ToastProps> = ({ toast, onDismiss }) => {
     <AnimatePresence>
       {toast && (
         <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl bg-neutral-900/90 dark:bg-[#16181f]/95 text-slate-100 border border-white/10 shadow-2xl backdrop-blur-xl min-w-[320px] max-w-md"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.15 }}
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 bg-[var(--bg)] text-[var(--fg)] border-3 border-[var(--line)] shadow-2xl min-w-[320px] max-w-md"
         >
           <div className="flex-shrink-0">
-            {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-emerald-400" />}
-            {toast.type === 'error' && <AlertCircle className="w-5 h-5 text-rose-400" />}
-            {toast.type === 'info' && <Info className="w-5 h-5 text-blue-400" />}
-            {toast.type === 'undo' && <CheckCircle2 className="w-5 h-5 text-blue-400" />}
+            {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-emerald-500 stroke-[2.5]" />}
+            {toast.type === 'error' && <AlertCircle className="w-5 h-5 text-red-500 stroke-[2.5]" />}
+            {toast.type === 'info' && <Info className="w-5 h-5 text-[var(--accent)] stroke-[2.5]" />}
+            {toast.type === 'undo' && <CheckCircle2 className="w-5 h-5 text-[var(--accent)] stroke-[2.5]" />}
           </div>
 
-          <div className="flex-1 text-sm font-medium text-slate-200 truncate">
+          <div className="flex-1 text-xs font-bold uppercase tracking-wider text-[var(--fg)] truncate">
             {toast.message}
           </div>
 
@@ -36,18 +36,18 @@ export const Toast: React.FC<ToastProps> = ({ toast, onDismiss }) => {
                 toast.onUndo?.();
                 onDismiss();
               }}
-              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-blue-400 hover:text-blue-300 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 rounded-lg transition-colors cursor-pointer"
+              className="editorial-btn-secondary flex items-center gap-1.5 py-1 px-2.5 text-[10px]"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
-              Undo
+              <RotateCcw className="w-3 h-3 stroke-[2.5]" />
+              UNDO
             </button>
           )}
 
           <button
             onClick={onDismiss}
-            className="text-slate-400 hover:text-slate-200 p-1 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+            className="text-[var(--muted)] hover:text-[var(--fg)] p-1 border border-transparent hover:border-[var(--line)] transition-colors cursor-pointer"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4 stroke-[2.5]" />
           </button>
         </motion.div>
       )}

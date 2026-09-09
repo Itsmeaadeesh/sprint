@@ -13,15 +13,24 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
     const saved = localStorage.getItem('sprint_theme') as Theme | null;
-    return saved === 'light' ? 'light' : 'dark';
+    if (saved === 'dark' || saved === 'light') {
+      return saved;
+    }
+    // Respect prefers-color-scheme on first visit before any explicit choice is made
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
   });
 
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
       root.classList.add('dark');
       root.classList.remove('light');
     } else {
+      root.removeAttribute('data-theme');
       root.classList.add('light');
       root.classList.remove('dark');
     }
@@ -29,7 +38,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   const toggleTheme = () => {
-    setThemeState(prev => (prev === 'dark' ? 'light' : 'dark'));
+    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   const setTheme = (newTheme: Theme) => {

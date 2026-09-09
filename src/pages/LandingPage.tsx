@@ -1,7 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Check, Shield, Zap, Calendar } from 'lucide-react';
-import { WindowChromeDots } from '../components/layout/WindowChrome';
+import React, { useState } from 'react';
+import { ThemeToggle } from '../components/ui/ThemeToggle';
 
 interface LandingPageProps {
   onNavigateLogin: () => void;
@@ -12,235 +10,184 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onNavigateLogin,
   onNavigateSignup,
 }) => {
+  const [demoTasks, setDemoTasks] = useState([
+    { id: 1, title: 'Ship the landing page', tag: 'Today', done: false },
+    { id: 2, title: 'Fix Supabase env vars', tag: 'Done', done: true },
+    { id: 3, title: 'Push to GitHub', tag: 'Next', done: false },
+    { id: 4, title: 'Deploy to Vercel', tag: 'Next', done: false },
+  ]);
+
+  const toggleDemoTask = (id: number) => {
+    setDemoTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-[#08090c] text-slate-100 flex flex-col selection:bg-indigo-500/30 selection:text-white">
-      {/* Top Subtle Border */}
-      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)] flex flex-col font-mono selection:bg-[var(--accent)] selection:text-[var(--bg)]">
       {/* Navigation */}
-      <header className="h-14 border-b border-white/[0.06] flex items-center justify-between px-6 max-w-6xl mx-auto w-full">
-        <div className="flex items-center gap-2.5">
-          <span className="w-5 h-5 rounded bg-white text-black flex items-center justify-center font-mono font-bold text-xs">
-            S
-          </span>
-          <span className="text-sm font-semibold tracking-tight text-white">
-            Sprint
-          </span>
+      <nav className="grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center px-6 sm:px-10 py-6 editorial-border-b-thick">
+        <div className="font-heading text-xl tracking-tight">
+          SPRINT⚡
         </div>
-
-        <div className="flex items-center gap-3">
+        <div className="hidden md:block text-[11px] uppercase tracking-wider text-center text-[var(--muted-3)]">
+          No fluff. Just velocity.
+        </div>
+        <div className="flex gap-4 justify-self-end text-xs items-center">
+          <ThemeToggle />
           <button
             onClick={onNavigateLogin}
-            className="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
+            className="text-[var(--fg)] uppercase tracking-wider font-bold hover:underline cursor-pointer bg-transparent border-0"
           >
-            Sign in
+            Log in
           </button>
           <button
             onClick={onNavigateSignup}
-            className="px-3 py-1.5 rounded-md bg-white text-black hover:bg-slate-200 text-xs font-medium transition-colors cursor-pointer"
+            className="editorial-btn-secondary py-1.5 px-4 font-bold cursor-pointer"
           >
-            Get started
+            Sign up
           </button>
         </div>
-      </header>
+      </nav>
 
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col items-center px-6 max-w-5xl mx-auto w-full pt-20 pb-28 text-center">
-        {/* Release Pill */}
-        <motion.div
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs text-slate-400 mb-8"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-          <span className="font-mono text-[11px] text-slate-300">Sprint 1.0</span>
-          <span className="text-slate-600">·</span>
-          <span>Multi-list task engine</span>
-        </motion.div>
-
-        {/* Confident Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.05 }}
-          className="text-4xl sm:text-6xl font-bold tracking-tight text-white max-w-3xl leading-[1.08] mb-6"
-        >
-          The issue board built for high-velocity teams.
-        </motion.h1>
-
-        {/* Subhead */}
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="text-base text-slate-400 max-w-xl mb-10 leading-relaxed"
-        >
-          Combines the speed of Google Tasks with the craft of modern software boards. Multi-list workflows, weekly calendar scheduling, and instant real-time sync.
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.15 }}
-          className="flex items-center justify-center gap-3 mb-16"
-        >
-          <button
-            onClick={onNavigateSignup}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black hover:bg-slate-200 font-medium text-xs shadow-xs transition-colors cursor-pointer"
-          >
-            <span>Start using Sprint</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={onNavigateLogin}
-            className="px-4 py-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 font-medium text-xs border border-white/[0.08] transition-colors cursor-pointer"
-          >
-            Live Demo
-          </button>
-        </motion.div>
-
-        {/* Realistic High-Density Product Mockup Window */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-full max-w-4xl rounded-xl linear-surface overflow-hidden text-left shadow-2xl border border-white/[0.08]"
-        >
-          {/* Window Chrome Header */}
-          <div className="h-9 px-3 bg-[#0d0e14] border-b border-white/[0.06] flex items-center justify-between">
-            <WindowChromeDots />
-            <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500">
-              <span>sprint.app</span>
-              <span>/</span>
-              <span>workspace</span>
+      <div className="editorial-border-b-thick">
+        <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr]">
+          {/* Left Column */}
+          <div className="p-8 sm:p-14 lg:p-16 lg:editorial-border-r-thick relative flex flex-col justify-between">
+            {/* Spinning Stamp Motif */}
+            <div className="hidden sm:flex stamp absolute top-10 right-6 md:right-10 pointer-events-none text-[var(--line)]">
+              EST. 2026<br />100% REAL
             </div>
-            <div className="w-10" />
-          </div>
 
-          {/* Sub Navigation Bar inside Mockup */}
-          <div className="px-4 py-2 border-b border-white/[0.05] bg-[#0a0b10] flex items-center justify-between text-xs text-slate-400">
-            <div className="flex items-center gap-3">
-              <span className="font-semibold text-white">Sprint Core</span>
-              <span className="text-slate-600">/</span>
-              <span>Board</span>
+            <div>
+              <div className="text-xs uppercase tracking-widest flex items-center gap-2.5 mb-8 text-[var(--muted)]">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent)] inline-block" />
+                <span>Built for people who ship</span>
+              </div>
+
+              <h1 className="text-[clamp(44px,5.4vw,90px)] font-heading leading-[0.92] uppercase tracking-tight text-[var(--fg)] mb-6">
+                Stop planning.<br />
+                <span
+                  style={{
+                    WebkitTextStroke: '2px var(--line)',
+                    color: 'var(--bg)',
+                  }}
+                >
+                  Start
+                </span>{' '}
+                <em className="font-serif-italic lowercase font-normal tracking-normal text-[var(--fg)]">
+                  doing
+                </em>
+                <br />
+                your <span className="text-[var(--accent)]">damn</span> list.
+              </h1>
+
+              <p className="max-w-md text-sm sm:text-base leading-relaxed text-[var(--muted)] mt-6">
+                Sprint is a task board with no patience for busywork. Multi-list, real-time, drag-and-drop — built to get out of your way.
+              </p>
             </div>
-            <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500">
-              <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10">⌘K</span>
-              <span>Command Menu</span>
+
+            <div className="mt-10 flex flex-wrap gap-0">
+              <button
+                onClick={onNavigateSignup}
+                className="bg-[var(--fg)] text-[var(--bg)] px-7 py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white transition-colors cursor-pointer"
+              >
+                Get started →
+              </button>
+              <button
+                onClick={onNavigateLogin}
+                className="text-[var(--fg)] px-6 py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick border-l-0 hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
+              >
+                See it live
+              </button>
             </div>
           </div>
 
-          {/* Mock Board Columns */}
-          <div className="p-4 bg-[#08090c] grid grid-cols-1 md:grid-cols-3 gap-3">
-            {/* Column 1 */}
-            <div className="rounded-lg bg-[#0d0e14] border border-white/[0.06] p-2.5 space-y-2">
-              <div className="flex items-center justify-between px-1 pb-1 border-b border-white/[0.04]">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-                  <span className="text-xs font-semibold text-slate-300">Backlog</span>
-                </div>
-                <span className="text-[10px] font-mono text-slate-500">2</span>
+          {/* Right Column: Stats & Live Interactive Demo */}
+          <div className="flex flex-col">
+            {/* Stat Block */}
+            <div className="p-8 sm:p-10 editorial-border-b-thick grid grid-cols-2 gap-6 bg-[var(--bg)]">
+              <div>
+                <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">4.2M</div>
+                <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Tasks completed</div>
               </div>
-              <div className="space-y-1.5">
-                <div className="p-2 rounded bg-[#12141c] border border-white/[0.05] text-xs">
-                  <div className="text-slate-200">Supabase RLS policy audit</div>
-                  <div className="flex items-center gap-2 mt-2 text-[10px] text-slate-500 font-mono">
-                    <span className="text-rose-400">High</span>
-                    <span>·</span>
-                    <span>Due tomorrow</span>
-                  </div>
-                </div>
-                <div className="p-2 rounded bg-[#12141c] border border-white/[0.05] text-xs">
-                  <div className="text-slate-200">API rate limiter middleware</div>
-                  <div className="flex items-center gap-2 mt-2 text-[10px] text-slate-500 font-mono">
-                    <span className="text-blue-400">Low</span>
-                  </div>
-                </div>
+              <div>
+                <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">0.3s</div>
+                <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Avg sync time</div>
+              </div>
+              <div>
+                <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">18K</div>
+                <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Active builders</div>
+              </div>
+              <div>
+                <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">100%</div>
+                <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Your data, yours</div>
               </div>
             </div>
 
-            {/* Column 2 */}
-            <div className="rounded-lg bg-[#0d0e14] border border-white/[0.06] p-2.5 space-y-2">
-              <div className="flex items-center justify-between px-1 pb-1 border-b border-white/[0.04]">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#5e6ad2]" />
-                  <span className="text-xs font-semibold text-slate-300">In Progress</span>
-                </div>
-                <span className="text-[10px] font-mono text-slate-500">2</span>
+            {/* Interactive Demo Board */}
+            <div className="p-8 sm:p-10 flex-1 flex flex-col justify-center">
+              <div className="text-[11px] uppercase tracking-widest text-[var(--muted-3)] mb-4 font-bold">
+                Try it — click to check off
               </div>
-              <div className="space-y-1.5">
-                <div className="p-2 rounded bg-[#12141c] border border-white/[0.05] text-xs">
-                  <div className="text-slate-200">Weekly drag-to-reschedule calendar</div>
-                  <div className="flex items-center gap-2 mt-2 text-[10px] text-slate-500 font-mono">
-                    <span className="text-amber-400">Med</span>
-                    <span>·</span>
-                    <span>Today</span>
+              <div className="space-y-0 editorial-border">
+                {demoTasks.map((task, idx) => (
+                  <div
+                    key={task.id}
+                    onClick={() => toggleDemoTask(task.id)}
+                    className={`flex items-center gap-3 p-3.5 text-xs font-mono cursor-pointer transition-colors hover:bg-[var(--hover-bg)] ${
+                      idx !== demoTasks.length - 1 ? 'editorial-border-b' : ''
+                    } ${task.done ? 'text-[var(--gray-soft)] line-through' : 'text-[var(--fg)]'}`}
+                  >
+                    <span className={`task-box ${task.done ? 'done' : ''}`} />
+                    <span className="flex-1 select-none">{task.title}</span>
+                    <span className="task-tag">{task.tag}</span>
                   </div>
-                </div>
-                <div className="p-2 rounded bg-[#12141c] border border-white/[0.05] text-xs">
-                  <div className="text-slate-200">Multi-tab realtime sync channel</div>
-                  <div className="flex items-center gap-2 mt-2 text-[10px] text-slate-500 font-mono">
-                    <span className="text-rose-400">High</span>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
-
-            {/* Column 3 */}
-            <div className="rounded-lg bg-[#0d0e14] border border-white/[0.06] p-2.5 space-y-2">
-              <div className="flex items-center justify-between px-1 pb-1 border-b border-white/[0.04]">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span className="text-xs font-semibold text-slate-300">Completed</span>
-                </div>
-                <span className="text-[10px] font-mono text-slate-500">1</span>
-              </div>
-              <div className="space-y-1.5">
-                <div className="p-2 rounded bg-[#101218]/50 border border-white/[0.03] text-xs opacity-60">
-                  <div className="line-through text-slate-400">Vite 8 production pipeline</div>
-                  <div className="flex items-center gap-1 mt-1.5 text-[10px] text-emerald-400">
-                    <Check className="w-3 h-3" />
-                    <span>Done</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mt-20 text-left">
-          <div className="p-5 rounded-xl linear-surface space-y-2">
-            <Zap className="w-4 h-4 text-slate-300" />
-            <h3 className="text-xs font-semibold text-white">Keyboard Driven</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Global ⌘K command palette, C for new issue, and inline row creation keep you typing at full speed.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl linear-surface space-y-2">
-            <Calendar className="w-4 h-4 text-slate-300" />
-            <h3 className="text-xs font-semibold text-white">Calendar Scheduling</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              7-day interactive timeline with drag-and-drop rescheduling and live time indicator lines.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl linear-surface space-y-2">
-            <Shield className="w-4 h-4 text-slate-300" />
-            <h3 className="text-xs font-semibold text-white">Supabase Postgres & RLS</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Direct cloud PostgreSQL persistence with Row Level Security and sub-second multi-tab sync.
-            </p>
           </div>
         </div>
-      </main>
+      </div>
 
-      {/* Minimal Footer */}
-      <footer className="border-t border-white/[0.06] py-6 text-center text-xs text-slate-500 font-mono">
-        Sprint. Engineering velocity.
+      {/* Marquee Ticker */}
+      <div className="marquee-wrap">
+        <div className="marquee">
+          <span>No gradients here</span>
+          <span>No AI slop</span>
+          <span>Just a board that works</span>
+          <span>Built different</span>
+          <span>Zero rounded corners</span>
+          <span>Space Mono precision</span>
+          <span>No gradients here</span>
+          <span>No AI slop</span>
+          <span>Just a board that works</span>
+          <span>Built different</span>
+        </div>
+      </div>
+
+      {/* Features Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 editorial-border-b-thick">
+        <div className="p-10 md:p-12 md:editorial-border-r-thick">
+          <div className="font-heading text-sm text-[var(--accent)] mb-4">01</div>
+          <h3 className="font-heading text-2xl uppercase mb-3 text-[var(--fg)]">Board view</h3>
+          <p className="text-xs sm:text-sm leading-relaxed text-[var(--muted)]">
+            Multiple lists side by side. Drag tasks between them. No nested menus, no clicking six times to reorder something. Flat, razor-sharp panels designed for speed.
+          </p>
+        </div>
+        <div className="p-10 md:p-12">
+          <div className="font-heading text-sm text-[var(--accent)] mb-4">02</div>
+          <h3 className="font-heading text-2xl uppercase mb-3 text-[var(--fg)]">Calendar sync</h3>
+          <p className="text-xs sm:text-sm leading-relaxed text-[var(--muted)]">
+            Every task with a due date shows up on a real weekly grid. Drag to reschedule. It just updates instantly across all connected sessions.
+          </p>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="p-8 text-center text-xs text-[var(--muted-3)] uppercase tracking-wider">
+        Sprint © 2026 — Brutalist Task Engine · No gradients · Pure velocity
       </footer>
     </div>
   );
