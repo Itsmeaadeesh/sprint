@@ -7,14 +7,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const LIST_COLORS = [
+  { name: 'Indigo', hex: '#5e6ad2', bg: 'bg-[#5e6ad2]' },
   { name: 'Blue', hex: '#3b82f6', bg: 'bg-blue-500' },
-  { name: 'Violet', hex: '#8b5cf6', bg: 'bg-violet-500' },
   { name: 'Emerald', hex: '#10b981', bg: 'bg-emerald-500' },
   { name: 'Amber', hex: '#f59e0b', bg: 'bg-amber-500' },
   { name: 'Rose', hex: '#f43f5e', bg: 'bg-rose-500' },
-  { name: 'Indigo', hex: '#6366f1', bg: 'bg-indigo-500' },
+  { name: 'Purple', hex: '#a855f7', bg: 'bg-purple-500' },
   { name: 'Cyan', hex: '#06b6d4', bg: 'bg-cyan-500' },
-  { name: 'Pink', hex: '#ec4899', bg: 'bg-pink-500' },
+  { name: 'Zinc', hex: '#71717a', bg: 'bg-zinc-500' },
 ];
 
 export function formatDate(dateString: string | null | undefined): string {
@@ -68,20 +68,23 @@ export function getPriorityStyles(priority: TaskPriority) {
       return {
         label: 'High',
         badge: 'text-rose-400 bg-rose-500/10 border-rose-500/20',
-        dot: 'bg-rose-500',
+        dot: 'bg-rose-400',
+        bars: 3,
       };
     case 'medium':
       return {
         label: 'Med',
         badge: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
-        dot: 'bg-amber-500',
+        dot: 'bg-amber-400',
+        bars: 2,
       };
     case 'low':
     default:
       return {
         label: 'Low',
         badge: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
-        dot: 'bg-blue-500',
+        dot: 'bg-blue-400',
+        bars: 1,
       };
   }
 }

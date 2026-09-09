@@ -102,7 +102,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
     )}&backgroundColor=3b82f6`;
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto p-6 max-w-3xl mx-auto w-full">
       {/* Top Breadcrumb Back */}
       <button
         onClick={onBackToBoard}
@@ -112,35 +112,35 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
         <span>Back to Board</span>
       </button>
 
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white">Settings & Preferences</h1>
+      <div className="mb-6 pb-4 border-b border-white/[0.07]">
+        <h1 className="text-xl font-bold text-white tracking-tight">Settings & Preferences</h1>
         <p className="text-xs text-slate-400 mt-1">
-          Manage your profile, account security, and workspace notifications
+          Manage your account profile, appearance, and security
         </p>
       </div>
 
       {error && (
-        <div className="mb-6 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2.5">
-          <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+        <div className="mb-6 p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
+          <AlertTriangle className="w-3.5 h-3.5 text-rose-400 flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       <div className="space-y-6">
         {/* 1. Profile Section */}
-        <section className="p-6 rounded-3xl glass-card border border-white/10 shadow-xl">
-          <h2 className="text-sm font-bold text-white mb-1 flex items-center gap-2">
-            <User className="w-4 h-4 text-blue-400" />
+        <section className="p-5 rounded-xl linear-surface">
+          <h2 className="text-xs font-semibold text-white uppercase tracking-wider mb-1 flex items-center gap-2">
+            <User className="w-3.5 h-3.5 text-slate-400" />
             Profile Details
           </h2>
-          <p className="text-xs text-slate-400 mb-6">
-            Your name and avatar appear across your board and shared workspaces
+          <p className="text-xs text-slate-400 mb-5">
+            Your name and avatar appear across your board and tasks
           </p>
 
           <form onSubmit={handleSaveProfile} className="space-y-4">
             {/* Avatar Preview & URL */}
-            <div className="flex items-center gap-4 pb-4 border-b border-white/5">
-              <div className="relative w-16 h-16 rounded-full ring-2 ring-white/10 overflow-hidden bg-[#16181f]">
+            <div className="flex items-center gap-4 pb-4 border-b border-white/[0.06]">
+              <div className="relative w-12 h-12 rounded-lg border border-white/[0.1] overflow-hidden bg-[#16181f] flex-shrink-0">
                 <img
                   src={avatarDisplay}
                   alt="Avatar"
@@ -148,7 +148,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                 />
               </div>
               <div className="flex-1">
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-slate-400 mb-1">
                   Avatar Image URL
                 </label>
                 <input
@@ -156,17 +156,17 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                   placeholder="https://images.unsplash.com/..."
                   value={avatarUrl}
                   onChange={(e) => setAvatarUrl(e.target.value)}
-                  className="w-full text-xs px-3.5 py-2 rounded-xl glass-input"
+                  className="w-full text-xs px-3 py-1.5 rounded-lg linear-input placeholder:text-slate-600"
                 />
                 <span className="text-[11px] text-slate-500 mt-1 block">
-                  Supports any image link or leave empty to use auto-generated initials
+                  Leave empty to use automatic initials avatar
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">
                   Display Name
                 </label>
                 <input
@@ -174,34 +174,34 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
-                  className="w-full text-xs px-3.5 py-2.5 rounded-xl glass-input"
+                  className="w-full text-xs px-3 py-1.5 rounded-lg linear-input"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">
                   Email Address
                 </label>
                 <input
                   type="email"
                   disabled
                   value={user?.email || ''}
-                  className="w-full text-xs px-3.5 py-2.5 rounded-xl glass-input bg-white/5 text-slate-500 cursor-not-allowed"
+                  className="w-full text-xs px-3 py-1.5 rounded-lg linear-input bg-white/[0.02] text-slate-500 cursor-not-allowed border-white/[0.04]"
                 />
               </div>
             </div>
 
             {/* Email Notifications Toggle */}
             <div className="pt-2">
-              <label className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/5 cursor-pointer">
+              <label className="flex items-center justify-between p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] cursor-pointer hover:bg-white/[0.04] transition-colors">
                 <div className="flex items-center gap-3">
-                  <Bell className="w-4 h-4 text-violet-400" />
+                  <Bell className="w-3.5 h-3.5 text-slate-400" />
                   <div>
-                    <span className="text-xs font-semibold text-slate-200 block">
+                    <span className="text-xs font-medium text-slate-200 block">
                       Email notifications for due dates
                     </span>
-                    <span className="text-[11px] text-slate-400">
-                      Receive morning digest when tasks are approaching deadlines
+                    <span className="text-[11px] text-slate-500">
+                      Receive alerts when tasks are approaching deadlines
                     </span>
                   </div>
                 </div>
@@ -209,7 +209,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                   type="checkbox"
                   checked={emailNotifications}
                   onChange={(e) => setEmailNotifications(e.target.checked)}
-                  className="w-4 h-4 accent-blue-500 rounded cursor-pointer"
+                  className="w-3.5 h-3.5 accent-white rounded cursor-pointer"
                 />
               </label>
             </div>
@@ -227,7 +227,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
               <button
                 type="submit"
                 disabled={savingProfile}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-600 hover:to-violet-700 text-white text-xs font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-black text-xs font-medium hover:bg-slate-200 transition-colors cursor-pointer shadow-xs"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>{savingProfile ? 'Saving...' : 'Save Profile'}</span>
@@ -237,61 +237,61 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
         </section>
 
         {/* 2. Theme Preferences */}
-        <section className="p-6 rounded-3xl glass-card border border-white/10 shadow-xl">
-          <h2 className="text-sm font-bold text-white mb-1 flex items-center gap-2">
-            <Moon className="w-4 h-4 text-indigo-400" />
-            Appearance & Theme
+        <section className="p-5 rounded-xl linear-surface">
+          <h2 className="text-xs font-semibold text-white uppercase tracking-wider mb-1 flex items-center gap-2">
+            <Moon className="w-3.5 h-3.5 text-slate-400" />
+            Appearance
           </h2>
           <p className="text-xs text-slate-400 mb-4">
-            Choose your preferred workspace aesthetic (Dark is default)
+            Select interface theme (Dark canvas recommended for high focus)
           </p>
 
-          <div className="grid grid-cols-2 gap-4 max-w-sm">
+          <div className="grid grid-cols-2 gap-3 max-w-sm">
             <button
               onClick={() => setTheme('dark')}
-              className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-3 ${
+              className={`p-3 rounded-lg border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
                 theme === 'dark'
-                  ? 'bg-blue-500/10 border-blue-500/40 text-white ring-1 ring-blue-500/40'
-                  : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
+                  ? 'bg-white/[0.08] border-white/20 text-white'
+                  : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-white'
               }`}
             >
-              <Moon className="w-4 h-4 text-blue-400" />
+              <Moon className="w-3.5 h-3.5 text-slate-300" />
               <div>
-                <div className="text-xs font-bold">Dark Canvas</div>
-                <div className="text-[10px] text-slate-500">#0d0e11 near-black</div>
+                <div className="text-xs font-medium">Dark Canvas</div>
+                <div className="text-[10px] text-slate-500">#08090c deep matte</div>
               </div>
             </button>
 
             <button
               onClick={() => setTheme('light')}
-              className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-3 ${
+              className={`p-3 rounded-lg border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
                 theme === 'light'
-                  ? 'bg-blue-500/10 border-blue-500/40 text-white ring-1 ring-blue-500/40'
-                  : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
+                  ? 'bg-white/[0.08] border-white/20 text-white'
+                  : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-white'
               }`}
             >
-              <Sun className="w-4 h-4 text-amber-400" />
+              <Sun className="w-3.5 h-3.5 text-slate-300" />
               <div>
-                <div className="text-xs font-bold">Light Canvas</div>
-                <div className="text-[10px] text-slate-500">Clean slate</div>
+                <div className="text-xs font-medium">Light Canvas</div>
+                <div className="text-[10px] text-slate-500">High contrast light</div>
               </div>
             </button>
           </div>
         </section>
 
         {/* 3. Password & Security */}
-        <section className="p-6 rounded-3xl glass-card border border-white/10 shadow-xl">
-          <h2 className="text-sm font-bold text-white mb-1 flex items-center gap-2">
-            <Lock className="w-4 h-4 text-amber-400" />
+        <section className="p-5 rounded-xl linear-surface">
+          <h2 className="text-xs font-semibold text-white uppercase tracking-wider mb-1 flex items-center gap-2">
+            <Lock className="w-3.5 h-3.5 text-slate-400" />
             Security & Password
           </h2>
-          <p className="text-xs text-slate-400 mb-6">
-            Ensure your account is using a secure password
+          <p className="text-xs text-slate-400 mb-5">
+            Ensure your account is protected with a strong password
           </p>
 
-          <form onSubmit={handleUpdatePassword} className="space-y-4 max-w-md">
+          <form onSubmit={handleUpdatePassword} className="space-y-3.5 max-w-sm">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              <label className="block text-xs font-medium text-slate-400 mb-1.5">
                 New Password
               </label>
               <input
@@ -301,12 +301,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full text-xs px-3.5 py-2.5 rounded-xl glass-input"
+                className="w-full text-xs px-3 py-1.5 rounded-lg linear-input placeholder:text-slate-600"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              <label className="block text-xs font-medium text-slate-400 mb-1.5">
                 Confirm New Password
               </label>
               <input
@@ -316,7 +316,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full text-xs px-3.5 py-2.5 rounded-xl glass-input"
+                className="w-full text-xs px-3 py-1.5 rounded-lg linear-input placeholder:text-slate-600"
               />
             </div>
 
@@ -333,7 +333,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
               <button
                 type="submit"
                 disabled={savingPassword || !newPassword}
-                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
+                className="px-3 py-1.5 rounded-lg bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.1] text-white text-xs font-medium transition-colors cursor-pointer disabled:opacity-50"
               >
                 {savingPassword ? 'Updating...' : 'Update Password'}
               </button>
@@ -342,18 +342,18 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
         </section>
 
         {/* 4. Danger Zone: Delete Account */}
-        <section className="p-6 rounded-3xl glass-card border border-rose-500/20 bg-rose-500/[0.02] shadow-xl">
-          <h2 className="text-sm font-bold text-rose-400 mb-1 flex items-center gap-2">
-            <Trash2 className="w-4 h-4 text-rose-400" />
+        <section className="p-5 rounded-xl border border-rose-500/20 bg-rose-500/[0.02]">
+          <h2 className="text-xs font-semibold text-rose-400 uppercase tracking-wider mb-1 flex items-center gap-2">
+            <Trash2 className="w-3.5 h-3.5 text-rose-400" />
             Danger Zone
           </h2>
           <p className="text-xs text-slate-400 mb-4">
-            Permanently delete your account and all associated lists, tasks, and data. This action is irreversible.
+            Permanently delete your account and all associated lists, tasks, and data.
           </p>
 
           <button
             onClick={() => setShowDeleteModal(true)}
-            className="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-semibold transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-medium transition-colors cursor-pointer"
           >
             Delete Account
           </button>
@@ -362,39 +362,39 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md rounded-3xl glass-card border border-rose-500/30 p-6 shadow-2xl relative"
+            className="w-full max-w-sm rounded-xl linear-surface border border-rose-500/30 p-5 shadow-2xl relative"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-2xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400">
-                <AlertTriangle className="w-5 h-5" />
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="w-7 h-7 rounded-md bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400">
+                <AlertTriangle className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-white">Delete Account?</h3>
-                <p className="text-xs text-rose-300">All data will be permanently wiped</p>
+                <h3 className="text-sm font-bold text-white">Delete Account?</h3>
+                <p className="text-[11px] text-rose-300">All data will be permanently wiped</p>
               </div>
             </div>
 
-            <p className="text-xs text-slate-300 mb-6 leading-relaxed">
-              Are you sure you want to delete your Sprint account? All your lists, tasks, and profile settings will be deleted immediately.
+            <p className="text-xs text-slate-400 mb-5 leading-relaxed">
+              Are you sure you want to delete your Sprint account? All lists, tasks, and profile settings will be permanently removed.
             </p>
 
-            <div className="flex items-center justify-end gap-3">
+            <div className="flex items-center justify-end gap-2.5">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors cursor-pointer"
+                className="px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDeleteAccount}
                 disabled={deleting}
-                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-lg shadow-rose-600/30 transition-all cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium transition-colors cursor-pointer"
               >
-                {deleting ? 'Deleting...' : 'Yes, Delete Everything'}
+                {deleting ? 'Deleting...' : 'Delete Account'}
               </button>
             </div>
           </motion.div>

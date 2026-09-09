@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, Flag, Folder, Sparkles } from 'lucide-react';
+import { X, Calendar, Flag, Folder } from 'lucide-react';
 import { useBoard } from '../../contexts/BoardContext';
 import type { TaskPriority } from '../../types';
 
@@ -54,127 +54,123 @@ export const QuickAddModal: React.FC<QuickAddModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            initial={{ opacity: 0, scale: 0.98, y: -6 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="w-full max-w-lg rounded-3xl glass-card border border-white/10 shadow-2xl p-6 relative overflow-hidden"
+            exit={{ opacity: 0, scale: 0.98, y: -6 }}
+            transition={{ duration: 0.15 }}
+            className="w-full max-w-lg rounded-xl linear-surface shadow-2xl p-5 relative overflow-hidden"
           >
-            {/* Ambient Top Glow */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-blue-500/15 to-transparent blur-2xl pointer-events-none" />
-
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+            {/* Header */}
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.06]">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white">Create New Task</h3>
-                  <p className="text-xs text-slate-400">Press ⌘Enter to save immediately</p>
-                </div>
+                <span className="w-2 h-2 rounded-full bg-white/40" />
+                <span className="text-xs font-semibold text-slate-200">New Issue</span>
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                className="p-1 rounded text-slate-500 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3">
               <div>
                 <input
                   type="text"
-                  placeholder="Task title..."
+                  placeholder="Issue title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   autoFocus
                   required
-                  className="w-full text-base font-medium px-3.5 py-2.5 rounded-xl glass-input placeholder:text-slate-500"
+                  className="w-full text-sm font-medium px-3 py-2 rounded-md linear-input placeholder:text-slate-600"
                 />
               </div>
 
               <div>
                 <textarea
-                  placeholder="Add notes, context, or links (optional)..."
+                  placeholder="Add description or markdown..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={3}
-                  className="w-full text-xs px-3.5 py-2.5 rounded-xl glass-input placeholder:text-slate-500 resize-none"
+                  className="w-full text-xs px-3 py-2 rounded-md linear-input placeholder:text-slate-600 resize-none"
                 />
               </div>
 
-              {/* Selectors Row: List, Priority, Due Date */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {/* List selector */}
+              {/* Selectors Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1 flex items-center gap-1">
-                    <Folder className="w-3 h-3 text-blue-400" />
+                  <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+                    <Folder className="w-2.5 h-2.5" />
                     List
                   </label>
                   <select
                     value={listId}
                     onChange={(e) => setListId(e.target.value)}
                     required
-                    className="w-full text-xs px-3 py-2 rounded-xl glass-input bg-[#12141a]"
+                    className="w-full text-xs px-2.5 py-1.5 rounded-md linear-input bg-[#0c0e14]"
                   >
                     {lists.map((l) => (
-                      <option key={l.id} value={l.id} className="bg-[#12141a] text-white">
+                      <option key={l.id} value={l.id} className="bg-[#0c0e14] text-white">
                         {l.name}
                       </option>
                     ))}
                   </select>
                 </div>
 
-                {/* Priority selector */}
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1 flex items-center gap-1">
-                    <Flag className="w-3 h-3 text-amber-400" />
+                  <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+                    <Flag className="w-2.5 h-2.5" />
                     Priority
                   </label>
                   <select
                     value={priority}
                     onChange={(e) => setPriority(e.target.value as TaskPriority)}
-                    className="w-full text-xs px-3 py-2 rounded-xl glass-input bg-[#12141a]"
+                    className="w-full text-xs px-2.5 py-1.5 rounded-md linear-input bg-[#0c0e14]"
                   >
-                    <option value="low" className="bg-[#12141a] text-white">Low</option>
-                    <option value="medium" className="bg-[#12141a] text-white">Medium</option>
-                    <option value="high" className="bg-[#12141a] text-white">High</option>
+                    <option value="low" className="bg-[#0c0e14] text-white">Low</option>
+                    <option value="medium" className="bg-[#0c0e14] text-white">Medium</option>
+                    <option value="high" className="bg-[#0c0e14] text-white">High</option>
                   </select>
                 </div>
 
-                {/* Due Date picker */}
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1 flex items-center gap-1">
-                    <Calendar className="w-3 h-3 text-emerald-400" />
+                  <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+                    <Calendar className="w-2.5 h-2.5" />
                     Due Date
                   </label>
                   <input
                     type="date"
                     value={dueDate}
                     onChange={(e) => setDueDate(e.target.value)}
-                    className="w-full text-xs px-3 py-2 rounded-xl glass-input bg-[#12141a]"
+                    className="w-full text-xs px-2.5 py-1.5 rounded-md linear-input bg-[#0c0e14]"
                   />
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-white/10">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={submitting || !title.trim() || !listId}
-                  className="px-5 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-600 hover:to-violet-700 text-white disabled:opacity-50 shadow-lg shadow-blue-500/25 transition-all cursor-pointer"
-                >
-                  {submitting ? 'Creating...' : 'Create Task'}
-                </button>
+              {/* Footer */}
+              <div className="flex items-center justify-between pt-3 border-t border-white/[0.06] mt-2">
+                <span className="text-[10px] font-mono text-slate-500">
+                  Press ↵ to create
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={submitting || !title.trim() || !listId}
+                    className="px-3.5 py-1.5 text-xs font-medium rounded-md bg-white text-black hover:bg-slate-200 disabled:opacity-50 transition-colors cursor-pointer"
+                  >
+                    {submitting ? 'Creating...' : 'Create Issue'}
+                  </button>
+                </div>
               </div>
             </form>
           </motion.div>

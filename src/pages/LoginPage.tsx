@@ -55,32 +55,27 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#0d0e11] text-slate-100 flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Glow Effects */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/15 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
-
+    <div className="min-h-screen bg-[#08090c] text-slate-100 flex items-center justify-center p-4">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="w-full max-w-md rounded-3xl glass-card border border-white/10 p-8 shadow-2xl relative backdrop-blur-2xl"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2 }}
+        className="w-full max-w-sm rounded-xl linear-surface p-7 shadow-2xl"
       >
         {/* Brand Header */}
-        <div className="flex flex-col items-center text-center mb-8">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-500 to-violet-600 flex items-center justify-center text-xl font-bold text-white shadow-lg shadow-blue-500/25 mb-3">
-            ⚡
+        <div className="flex flex-col items-center text-center mb-6">
+          <div className="w-8 h-8 rounded-md bg-white text-black flex items-center justify-center font-mono font-bold text-xs mb-3 shadow-xs">
+            S
           </div>
-          <h2 className="text-2xl font-bold text-white">Welcome back</h2>
+          <h2 className="text-lg font-bold text-white tracking-tight">Sign in to Sprint</h2>
           <p className="text-xs text-slate-400 mt-1">
-            Log in to continue to your Sprint board
+            Welcome back to your workspace
           </p>
         </div>
 
-        {/* Inline Error Alert */}
         {error && (
-          <div className="mb-6 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2.5">
-            <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-400" />
+          <div className="mb-4 p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
+            <AlertCircle className="w-3.5 h-3.5 flex-shrink-0 text-rose-400" />
             <span>{error}</span>
           </div>
         )}
@@ -90,9 +85,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           onClick={handleGoogleSignIn}
           disabled={googleLoading}
           type="button"
-          className="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2.5 transition-all mb-5 hover:border-white/20 cursor-pointer"
+          className="w-full py-2 px-3 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-slate-200 text-xs font-medium flex items-center justify-center gap-2.5 transition-colors mb-4 cursor-pointer"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
             <path
               fill="#EA4335"
               d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
@@ -113,55 +108,55 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           <span>{googleLoading ? 'Connecting...' : 'Continue with Google'}</span>
         </button>
 
-        <div className="flex items-center gap-3 mb-5">
-          <div className="flex-1 border-t border-white/10" />
-          <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
-            or with email
+        <div className="flex items-center gap-3 mb-4">
+          <div className="flex-1 border-t border-white/[0.06]" />
+          <span className="text-[10px] uppercase font-mono text-slate-500">
+            or
           </span>
-          <div className="flex-1 border-t border-white/10" />
+          <div className="flex-1 border-t border-white/[0.06]" />
         </div>
 
-        {/* Email & Password Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Email Form */}
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-              Email Address
+            <label className="block text-[11px] font-medium text-slate-300 mb-1">
+              Email
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Mail className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="email"
-                placeholder="you@company.com"
+                placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl glass-input text-xs"
+                className="w-full pl-9 pr-3 py-2 rounded-lg linear-input text-xs"
               />
             </div>
           </div>
 
           <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-semibold text-slate-300">
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[11px] font-medium text-slate-300">
                 Password
               </label>
               <button
                 type="button"
                 onClick={onNavigateForgotPassword}
-                className="text-[11px] text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
+                className="text-[10px] text-slate-400 hover:text-white transition-colors cursor-pointer"
               >
-                Forgot password?
+                Forgot?
               </button>
             </div>
             <div className="relative">
-              <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl glass-input text-xs"
+                className="w-full pl-9 pr-3 py-2 rounded-lg linear-input text-xs"
               />
             </div>
           </div>
@@ -169,21 +164,20 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-600 hover:to-violet-700 text-white font-semibold text-xs shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 cursor-pointer mt-2"
+            className="w-full py-2 rounded-lg bg-white text-black hover:bg-slate-200 font-medium text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer mt-1"
           >
-            <span>{loading ? 'Signing in...' : 'Sign In'}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <span>{loading ? 'Signing in...' : 'Sign in'}</span>
+            <ArrowRight className="w-3 h-3" />
           </button>
         </form>
 
-        {/* Footer Link */}
-        <p className="mt-6 text-center text-xs text-slate-400">
-          Don't have an account?{' '}
+        <p className="mt-5 text-center text-xs text-slate-400">
+          No account yet?{' '}
           <button
             onClick={onNavigateSignup}
-            className="text-blue-400 hover:text-blue-300 font-semibold transition-colors cursor-pointer"
+            className="text-white hover:underline font-medium transition-colors cursor-pointer"
           >
-            Sign up free
+            Sign up
           </button>
         </p>
       </motion.div>
