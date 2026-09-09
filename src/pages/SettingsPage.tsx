@@ -102,7 +102,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
     )}&backgroundColor=ff3d00`;
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 md:p-8 max-w-4xl mx-auto w-full bg-[var(--bg)] text-[var(--fg)]">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 max-w-4xl mx-auto w-full bg-[var(--bg)] text-[var(--fg)]">
       {/* Top Breadcrumb Back */}
       <button
         onClick={onBackToBoard}
@@ -113,12 +113,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
       </button>
 
       {/* Header Banner */}
-      <div className="mb-8 pb-4 border-b-3 border-[var(--line)] flex flex-wrap items-baseline justify-between gap-4">
+      <div className="mb-6 sm:mb-8 pb-4 border-b-3 border-[var(--line)] flex flex-wrap items-baseline justify-between gap-3 sm:gap-4">
         <div>
           <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] block mb-1">
             System Preferences
           </span>
-          <h1 className="font-heading text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--fg)]">
+          <h1 className="font-heading text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--fg)]">
             Settings &amp; Profile
           </h1>
         </div>
@@ -134,9 +134,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
         </div>
       )}
 
-      <div className="space-y-8">
+      <div className="space-y-6 sm:space-y-8">
         {/* 1. Profile Section */}
-        <section className="editorial-card p-6">
+        <section className="editorial-card p-4 sm:p-6">
           <div className="flex items-center justify-between pb-3 mb-5 border-b-2 border-[var(--line)]">
             <h2 className="font-heading text-sm font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
               <User className="w-4 h-4 text-[var(--accent)] stroke-[2.5]" />
@@ -245,7 +245,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
         </section>
 
         {/* 2. Theme Preferences */}
-        <section className="editorial-card p-6">
+        <section className="editorial-card p-4 sm:p-6">
           <div className="flex items-center justify-between pb-3 mb-4 border-b-2 border-[var(--line)]">
             <h2 className="font-heading text-sm font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
               <Moon className="w-4 h-4 text-[var(--accent)] stroke-[2.5]" />
@@ -257,10 +257,10 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
             Switch between high-contrast editorial light and pitch dark print canvases.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-md">
             <button
               onClick={() => setTheme('dark')}
-              className={`p-4 border-2 text-left transition-all cursor-pointer flex items-center gap-3 ${
+              className={`p-3.5 sm:p-4 border-2 text-left transition-all cursor-pointer flex items-center gap-3 ${
                 theme === 'dark'
                   ? 'border-[var(--accent)] bg-[var(--line)] text-[var(--bg)] font-bold'
                   : 'border-[var(--line)] bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--fg)] hover:border-[var(--fg)]'
@@ -275,7 +275,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
 
             <button
               onClick={() => setTheme('light')}
-              className={`p-4 border-2 text-left transition-all cursor-pointer flex items-center gap-3 ${
+              className={`p-3.5 sm:p-4 border-2 text-left transition-all cursor-pointer flex items-center gap-3 ${
                 theme === 'light'
                   ? 'border-[var(--accent)] bg-[var(--line)] text-[var(--bg)] font-bold'
                   : 'border-[var(--line)] bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--fg)] hover:border-[var(--fg)]'
@@ -291,7 +291,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
         </section>
 
         {/* 3. Password & Security */}
-        <section className="editorial-card p-6">
+        <section className="editorial-card p-4 sm:p-6">
           <div className="flex items-center justify-between pb-3 mb-4 border-b-2 border-[var(--line)]">
             <h2 className="font-heading text-sm font-black uppercase tracking-wider text-[var(--fg)] flex items-center gap-2">
               <Lock className="w-4 h-4 text-[var(--accent)] stroke-[2.5]" />
@@ -353,7 +353,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
         </section>
 
         {/* 4. Danger Zone: Delete Account */}
-        <section className="border-3 border-red-500 bg-red-500/5 p-6">
+        <section className="border-3 border-red-500 bg-red-500/5 p-4 sm:p-6">
           <div className="flex items-center justify-between pb-3 mb-3 border-b-2 border-red-500/30">
             <h2 className="font-heading text-sm font-black uppercase tracking-wider text-red-500 flex items-center gap-2">
               <Trash2 className="w-4 h-4 stroke-[2.5]" />

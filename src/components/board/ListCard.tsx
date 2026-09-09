@@ -70,7 +70,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, tasks }) => {
       ref={setNodeRef}
       style={style}
       className={cn(
-        'w-80 flex-shrink-0 flex flex-col editorial-border-thick bg-[var(--card-bg)] max-h-[calc(100vh-160px)] font-mono select-none',
+        'w-[82vw] max-w-80 sm:w-80 flex-shrink-0 snap-center flex flex-col editorial-border-thick bg-[var(--card-bg)] max-h-[calc(100vh-160px)] font-mono select-none',
         isDragging && 'opacity-60 border-[var(--accent)]'
       )}
     >

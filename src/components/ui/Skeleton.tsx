@@ -14,9 +14,9 @@ export const Skeleton: React.FC<{ className?: string }> = ({ className }) => {
 
 export const BoardSkeleton: React.FC = () => {
   return (
-    <div className="flex gap-6 overflow-x-auto p-6">
+    <div className="flex gap-4 sm:gap-6 overflow-x-auto p-4 sm:p-6">
       {[1, 2, 3].map(i => (
-        <div key={i} className="w-80 flex-shrink-0 editorial-card p-4 space-y-4">
+        <div key={i} className="w-[82vw] max-w-80 sm:w-80 flex-shrink-0 editorial-card p-4 space-y-4">
           <div className="flex items-center justify-between pb-3 border-b-2 border-[var(--line)]">
             <div className="flex items-center gap-2">
               <Skeleton className="w-3 h-3" />

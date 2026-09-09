@@ -29,12 +29,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const totalOpenTasks = tasks.filter((t) => !t.completed).length;
 
   return (
-    <aside
-      className={cn(
-        'relative editorial-border-r-thick bg-[var(--bg)] flex flex-col justify-between transition-all duration-200 z-20 select-none font-mono',
-        isOpen ? 'w-60' : 'w-16'
+    <>
+      {/* Mobile Backdrop Overlay */}
+      {isOpen && (
+        <div
+          onClick={onToggle}
+          className="fixed inset-0 bg-black/60 z-30 md:hidden"
+        />
       )}
-    >
+
+      <aside
+        className={cn(
+          'editorial-border-r-thick bg-[var(--bg)] flex flex-col justify-between transition-all duration-200 select-none font-mono',
+          // Mobile: drawer positioning
+          'fixed inset-y-0 left-0 z-40 md:static md:z-20',
+          isOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-16'
+        )}
+      >
       {/* Top section */}
       <div className="p-3 space-y-4">
         {/* Toggle & Section Header */}
@@ -167,5 +178,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
       </div>
     </aside>
+  </>
   );
 };

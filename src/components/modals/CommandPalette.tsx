@@ -48,7 +48,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 p-4 bg-black/70">
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-12 sm:pt-24 p-3 sm:p-4 bg-black/70">
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: -8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}

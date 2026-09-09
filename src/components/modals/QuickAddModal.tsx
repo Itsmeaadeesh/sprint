@@ -54,13 +54,13 @@ export const QuickAddModal: React.FC<QuickAddModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70">
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: -6 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: -6 }}
             transition={{ duration: 0.15 }}
-            className="w-full max-w-lg editorial-card p-6 shadow-2xl relative text-[var(--fg)] bg-[var(--bg)]"
+            className="w-full max-w-lg editorial-card p-4 sm:p-6 shadow-2xl relative text-[var(--fg)] bg-[var(--bg)]"
           >
             {/* Header */}
             <div className="flex items-center justify-between pb-3 mb-4 border-b-2 border-[var(--line)]">

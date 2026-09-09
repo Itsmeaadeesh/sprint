@@ -96,10 +96,10 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
   };
 
   return (
-    <div className="flex-1 flex flex-col p-4 sm:p-6 overflow-hidden font-mono select-none">
+    <div className="flex-1 flex flex-col p-3 sm:p-6 overflow-hidden font-mono select-none">
       {/* Calendar Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-3 sm:mb-4">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="flex items-center editorial-border">
             <button
               onClick={prevWeek}
@@ -117,7 +117,7 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
 
           <button
             onClick={goToToday}
-            className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider editorial-border text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
+            className="px-2.5 sm:px-3 py-1.5 text-xs font-bold uppercase tracking-wider editorial-border text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
           >
             Today
           </button>
@@ -132,14 +132,14 @@ export const CalendarView: React.FC<{ onQuickAddForDate: (dateStr: string) => vo
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-[11px] text-[var(--muted-3)] uppercase">
+        <div className="hidden sm:flex items-center gap-2 text-[11px] text-[var(--muted-3)] uppercase">
           <span className="w-2 h-2 rounded-full bg-[var(--accent)] inline-block" />
           <span>Drag tasks between days to reschedule</span>
         </div>
       </div>
 
       {/* 7-Day Grid */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-7 gap-3 min-h-0 overflow-y-auto">
+      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-3 min-h-0 overflow-y-auto">
         {weekDays.map((day, idx) => {
           const dayTasks = getTasksForDate(day);
           const today = isToday(day);

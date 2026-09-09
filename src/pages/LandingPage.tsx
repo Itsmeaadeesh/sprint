@@ -54,7 +54,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <div className="editorial-border-b-thick">
         <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr]">
           {/* Left Column */}
-          <div className="p-8 sm:p-14 lg:p-16 lg:editorial-border-r-thick relative flex flex-col justify-between">
+          <div className="p-5 sm:p-14 lg:p-16 lg:editorial-border-r-thick relative flex flex-col justify-between">
             {/* Spinning Stamp Motif */}
             <div className="hidden sm:flex stamp absolute top-10 right-6 md:right-10 pointer-events-none text-[var(--line)]">
               EST. 2026<br />100% REAL
@@ -88,16 +88,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </p>
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-0">
+            <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-0">
               <button
                 onClick={onNavigateSignup}
-                className="bg-[var(--fg)] text-[var(--bg)] px-7 py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white transition-colors cursor-pointer"
+                className="bg-[var(--fg)] text-[var(--bg)] px-6 sm:px-7 py-3.5 sm:py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white transition-colors cursor-pointer text-center"
               >
                 Get started →
               </button>
               <button
                 onClick={onNavigateLogin}
-                className="text-[var(--fg)] px-6 py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick border-l-0 hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
+                className="text-[var(--fg)] px-6 py-3.5 sm:py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick sm:border-l-0 hover:bg-[var(--hover-bg)] transition-colors cursor-pointer text-center"
               >
                 See it live
               </button>
@@ -107,7 +107,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           {/* Right Column: Stats & Live Interactive Demo */}
           <div className="flex flex-col">
             {/* Stat Block */}
-            <div className="p-8 sm:p-10 editorial-border-b-thick grid grid-cols-2 gap-6 bg-[var(--bg)]">
+            <div className="p-6 sm:p-10 editorial-border-b-thick grid grid-cols-2 gap-4 sm:gap-6 bg-[var(--bg)]">
               <div>
                 <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">4.2M</div>
                 <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Tasks completed</div>
@@ -127,7 +127,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             {/* Interactive Demo Board */}
-            <div className="p-8 sm:p-10 flex-1 flex flex-col justify-center">
+            <div className="p-5 sm:p-10 flex-1 flex flex-col justify-center">
               <div className="text-[11px] uppercase tracking-widest text-[var(--muted-3)] mb-4 font-bold">
                 Try it — click to check off
               </div>

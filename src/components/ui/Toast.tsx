@@ -17,7 +17,7 @@ export const Toast: React.FC<ToastProps> = ({ toast, onDismiss }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.15 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 bg-[var(--bg)] text-[var(--fg)] border-3 border-[var(--line)] shadow-2xl min-w-[320px] max-w-md"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[var(--bg)] text-[var(--fg)] border-3 border-[var(--line)] shadow-2xl w-[90vw] sm:w-auto min-w-[280px] sm:min-w-[320px] max-w-md"
         >
           <div className="flex-shrink-0">
             {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-emerald-500 stroke-[2.5]" />}

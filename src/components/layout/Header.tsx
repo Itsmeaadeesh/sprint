@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Share2, Search, Settings, LogOut } from 'lucide-react';
+import { Plus, Share2, Search, Settings, LogOut, Menu } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { ThemeToggle } from '../ui/ThemeToggle';
 
@@ -9,6 +9,7 @@ interface HeaderProps {
   onOpenCommandPalette: () => void;
   onOpenQuickAdd: () => void;
   onOpenShareModal: () => void;
+  onToggleSidebar?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCommandPalette,
   onOpenQuickAdd,
   onOpenShareModal,
+  onToggleSidebar,
 }) => {
   const { user, profile, signOut } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -27,19 +29,29 @@ export const Header: React.FC<HeaderProps> = ({
     `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(displayName)}&backgroundColor=27272a&textColor=ffffff`;
 
   return (
-    <header className="h-14 editorial-border-b-thick bg-[var(--bg)] sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 select-none font-mono">
+    <header className="h-14 editorial-border-b-thick bg-[var(--bg)] sticky top-0 z-30 flex items-center justify-between px-3 sm:px-6 select-none font-mono">
       {/* Left: Workspace / App Logo */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
+        {onToggleSidebar && (
+          <button
+            onClick={onToggleSidebar}
+            title="Toggle sidebar"
+            className="md:hidden p-1.5 editorial-border text-[var(--fg)] hover:bg-[var(--hover-bg)] cursor-pointer"
+          >
+            <Menu className="w-4 h-4 stroke-[2.5]" />
+          </button>
+        )}
+
         <button
           onClick={() => onNavigateView('board')}
           className="flex items-center gap-2 text-[var(--fg)] cursor-pointer group bg-transparent border-0"
         >
-          <span className="font-heading text-lg tracking-tight">SPRINT⚡</span>
+          <span className="font-heading text-base sm:text-lg tracking-tight">SPRINT⚡</span>
         </button>
 
         <span className="text-[var(--muted-3)]">/</span>
 
-        <span className="text-xs uppercase tracking-wider font-bold text-[var(--muted-2)]">
+        <span className="text-[11px] sm:text-xs uppercase tracking-wider font-bold text-[var(--muted-2)] truncate max-w-[80px] sm:max-w-none">
           {currentView === 'board' ? 'Board' : 'Settings'}
         </span>
       </div>

@@ -56,7 +56,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)] flex flex-col font-mono selection:bg-[var(--accent)] selection:text-[var(--bg)]">
       {/* Top Bar */}
-      <nav className="flex items-center justify-between px-6 sm:px-10 py-5 editorial-border-b-thick">
+      <nav className="flex items-center justify-between px-4 sm:px-10 py-4 sm:py-5 editorial-border-b-thick">
         <div className="font-heading text-lg tracking-tight">SPRINT⚡</div>
         <div className="flex items-center gap-4 text-xs">
           <button
@@ -69,8 +69,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       </nav>
 
       {/* Main Login Card */}
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
-        <div className="w-full max-w-md bg-[var(--card-bg)] editorial-border-thick p-8">
+      <div className="flex-1 flex items-center justify-center p-3 sm:p-8">
+        <div className="w-full max-w-md bg-[var(--card-bg)] editorial-border-thick p-5 sm:p-8">
           {/* Header */}
           <div className="mb-8">
             <div className="text-[11px] uppercase tracking-widest text-[var(--accent)] font-bold mb-2">

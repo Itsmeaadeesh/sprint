@@ -21,7 +21,7 @@ export const BoardPage: React.FC = () => {
   const { isConfigured } = useAuth();
 
   const [currentAppView, setCurrentAppView] = useState<'board' | 'settings'>('board');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(() => (typeof window !== 'undefined' ? window.innerWidth >= 768 : true));
 
   // Modals
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
@@ -76,6 +76,7 @@ export const BoardPage: React.FC = () => {
           setIsQuickAddOpen(true);
         }}
         onOpenShareModal={() => setIsShareOpen(true)}
+        onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
       />
 
       {/* Main Body Area: Sidebar + Board/Calendar/Settings */}

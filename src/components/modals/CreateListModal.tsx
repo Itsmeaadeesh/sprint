@@ -30,13 +30,13 @@ export const CreateListModal: React.FC<CreateListModalProps> = ({ isOpen, onClos
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70">
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="w-full max-w-md editorial-card shadow-2xl p-6 relative bg-[var(--bg)] text-[var(--fg)]"
+            className="w-full max-w-md editorial-card shadow-2xl p-4 sm:p-6 relative bg-[var(--bg)] text-[var(--fg)]"
           >
             <div className="flex items-center justify-between pb-3 mb-4 border-b-2 border-[var(--line)]">
               <div className="flex items-center gap-2">

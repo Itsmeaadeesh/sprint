@@ -23,32 +23,32 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({ onQuickAdd: 
   if (totalTasks === 0) return null;
 
   return (
-    <div className="px-4 sm:px-6 py-2.5 editorial-border-b bg-[var(--bg)] font-mono text-xs select-none">
+    <div className="px-3 sm:px-6 py-2 editorial-border-b bg-[var(--bg)] font-mono text-xs select-none">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
+        <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-0.5 max-w-full">
           {/* Progress metric */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-20 bg-transparent editorial-border h-3 p-[1px]">
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="w-16 sm:w-20 bg-transparent editorial-border h-3 p-[1px]">
               <div
                 className="bg-[var(--accent)] h-full transition-all duration-300"
                 style={{ width: `${completionPct}%` }}
               />
             </div>
-            <span className="font-bold text-[11px] uppercase tracking-wider text-[var(--fg)]">
+            <span className="font-bold text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--fg)] whitespace-nowrap">
               {completionPct}% resolved
             </span>
           </div>
 
-          <div className="w-px h-3.5 bg-[var(--line)]" />
+          <div className="w-px h-3.5 bg-[var(--line)] flex-shrink-0" />
 
           {/* Open Issues */}
-          <div className="flex items-center gap-1.5 text-[var(--muted)]">
+          <div className="flex items-center gap-1.5 text-[var(--muted)] flex-shrink-0">
             <span className="font-bold text-[var(--fg)]">{openTasks.length}</span>
             <span className="uppercase text-[10px] tracking-wider">open</span>
           </div>
 
           {/* Due Today / Overdue */}
-          <div className="flex items-center gap-1.5 text-[var(--muted)]">
+          <div className="flex items-center gap-1.5 text-[var(--muted)] flex-shrink-0">
             <Clock className="w-3.5 h-3.5 text-[var(--accent)]" />
             <span className="font-bold text-[var(--fg)]">{dueTodayTasks.length}</span>
             <span className="uppercase text-[10px] tracking-wider">today</span>

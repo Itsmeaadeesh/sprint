@@ -60,7 +60,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)] flex flex-col font-mono selection:bg-[var(--accent)] selection:text-[var(--bg)]">
       {/* Top Bar */}
-      <nav className="flex items-center justify-between px-6 sm:px-10 py-5 editorial-border-b-thick">
+      <nav className="flex items-center justify-between px-4 sm:px-10 py-4 sm:py-5 editorial-border-b-thick">
         <div className="font-heading text-lg tracking-tight">SPRINT⚡</div>
         <div className="flex items-center gap-4 text-xs">
           <ThemeToggle />
@@ -68,14 +68,14 @@ export const SignupPage: React.FC<SignupPageProps> = ({
             onClick={onNavigateLogin}
             className="text-[var(--fg)] uppercase tracking-wider font-bold hover:underline cursor-pointer bg-transparent border-0"
           >
-            Already have an account? Sign in
+            Sign in
           </button>
         </div>
       </nav>
 
       {/* Main Signup Card */}
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
-        <div className="w-full max-w-md bg-[var(--card-bg)] editorial-border-thick p-8">
+      <div className="flex-1 flex items-center justify-center p-3 sm:p-8">
+        <div className="w-full max-w-md bg-[var(--card-bg)] editorial-border-thick p-5 sm:p-8">
           {/* Header */}
           <div className="mb-8">
             <div className="text-[11px] uppercase tracking-widest text-[var(--accent)] font-bold mb-2">
@@ -143,7 +143,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({
                 <User className="w-4 h-4 text-[var(--muted-3)] absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
-                  placeholder="Aadeesh Jain"
+                  placeholder="e.g. Alex Morgan"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
