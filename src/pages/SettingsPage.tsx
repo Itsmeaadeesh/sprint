@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   AlertTriangle,
   ArrowLeft,
+  LogOut,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -20,7 +21,7 @@ interface SettingsPageProps {
 }
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => {
-  const { user, profile, updateProfile, updatePassword, deleteAccount } = useAuth();
+  const { user, profile, updateProfile, updatePassword, deleteAccount, signOut } = useAuth();
   const { theme, setTheme } = useTheme();
 
   const [fullName, setFullName] = useState(profile?.full_name || '');
@@ -40,6 +41,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,6 +96,21 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
     await deleteAccount();
     setDeleting(false);
     setShowDeleteModal(false);
+  };
+
+  const handleConfirmLogout = async () => {
+    setLoggingOut(true);
+    try {
+      window.history.pushState({}, '', '/login');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      await signOut();
+    } catch (err) {
+      console.error('Logout error:', err);
+      window.location.href = '/login';
+    } finally {
+      setLoggingOut(false);
+      setShowLogoutModal(false);
+    }
   };
 
   const avatarDisplay =
@@ -222,24 +240,35 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
               </label>
             </div>
 
-            <div className="flex items-center justify-between pt-2">
-              {profileSuccess ? (
-                <span className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 font-bold uppercase tracking-wider">
-                  <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
-                  Profile saved
-                </span>
-              ) : (
-                <span />
-              )}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+              <div>
+                {profileSuccess && (
+                  <span className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 font-bold uppercase tracking-wider">
+                    <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
+                    Profile saved
+                  </span>
+                )}
+              </div>
 
-              <button
-                type="submit"
-                disabled={savingProfile}
-                className="editorial-btn-primary flex items-center gap-2"
-              >
-                <Save className="w-3.5 h-3.5 stroke-[2.5]" />
-                <span>{savingProfile ? 'Saving...' : 'Save Profile'}</span>
-              </button>
+              <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap justify-end">
+                <button
+                  type="button"
+                  onClick={() => setShowLogoutModal(true)}
+                  className="editorial-btn-secondary flex items-center gap-2 cursor-pointer"
+                >
+                  <LogOut className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Log Out</span>
+                </button>
+
+                <button
+                  type="submit"
+                  disabled={savingProfile}
+                  className="editorial-btn-primary flex items-center gap-2 cursor-pointer"
+                >
+                  <Save className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>{savingProfile ? 'Saving...' : 'Save Profile'}</span>
+                </button>
+              </div>
             </div>
           </form>
         </section>
@@ -373,6 +402,53 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
           </button>
         </section>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      {showLogoutModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-md bg-[var(--bg)] border-3 border-[var(--line)] p-6 shadow-2xl relative text-[var(--fg)]"
+          >
+            <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[var(--line)]">
+              <div className="w-8 h-8 border-2 border-[var(--line)] flex items-center justify-center text-[var(--fg)] bg-[var(--surface)]">
+                <LogOut className="w-4 h-4 stroke-[2.5]" />
+              </div>
+              <div>
+                <h3 className="font-heading text-sm font-black uppercase tracking-wider text-[var(--fg)]">
+                  Log Out
+                </h3>
+                <p className="text-[11px] font-bold uppercase text-[var(--muted)]">Session Termination</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-[var(--muted)] mb-6 leading-relaxed">
+              Are you sure you want to end your current session and log out of Sprint?
+            </p>
+
+            <div className="flex items-center justify-end gap-3 pt-3 border-t-2 border-[var(--line)]">
+              <button
+                type="button"
+                onClick={() => setShowLogoutModal(false)}
+                disabled={loggingOut}
+                className="editorial-btn-secondary cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmLogout}
+                disabled={loggingOut}
+                className="editorial-btn-secondary bg-[var(--surface)] hover:bg-[var(--hover-bg)] flex items-center gap-2 cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>{loggingOut ? 'Logging out...' : 'Log Out'}</span>
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
