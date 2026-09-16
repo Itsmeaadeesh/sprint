@@ -8,6 +8,7 @@ import { SignupPage } from './pages/SignupPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { BoardPage } from './pages/BoardPage';
 import { Skeleton } from './components/ui/Skeleton';
+import { ReloadPrompt } from './components/pwa/ReloadPrompt';
 
 const MainApp: React.FC = () => {
   const { user, loading } = useAuth();
@@ -93,6 +94,7 @@ export function App() {
     <ThemeProvider>
       <AuthProvider>
         <MainApp />
+        <ReloadPrompt />
       </AuthProvider>
     </ThemeProvider>
   );
