@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Plus } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import { Sidebar } from '../components/layout/Sidebar';
 import { TabRow } from '../components/layout/TabRow';
@@ -169,6 +170,20 @@ export const BoardPage: React.FC = () => {
 
       {/* Toast Notification Container */}
       <Toast toast={toast} onDismiss={dismissToast} />
+
+      {/* Mobile Floating Quick Add Action Button (Thumb Reach) */}
+      {currentAppView === 'board' && (
+        <button
+          onClick={() => {
+            setQuickAddDefaultDate(null);
+            setIsQuickAddOpen(true);
+          }}
+          aria-label="Create new task"
+          className="md:hidden fixed right-4 bottom-[calc(env(safe-area-inset-bottom)+1.25rem)] z-30 w-13 h-13 min-w-[52px] min-h-[52px] bg-[var(--accent)] text-[var(--accent-fg)] editorial-border-thick shadow-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
+        >
+          <Plus className="w-6 h-6 stroke-[3]" />
+        </button>
+      )}
     </div>
   );
 };

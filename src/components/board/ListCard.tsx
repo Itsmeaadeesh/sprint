@@ -65,12 +65,31 @@ export const ListCard: React.FC<ListCardProps> = ({ list, tasks }) => {
     setIsEditingName(false);
   };
 
+  const menuRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (e: Event) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setShowListMenu(false);
+        setShowColorPicker(false);
+      }
+    };
+    if (showListMenu || showColorPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [showListMenu, showColorPicker]);
+
   return (
     <div
       ref={setNodeRef}
       style={style}
       className={cn(
-        'w-[82vw] max-w-80 sm:w-80 flex-shrink-0 snap-center flex flex-col editorial-border-thick bg-[var(--card-bg)] max-h-[calc(100vh-160px)] font-mono select-none',
+        'w-[84vw] max-w-[340px] sm:w-80 flex-shrink-0 snap-center flex flex-col editorial-border-thick bg-[var(--card-bg)] max-h-[calc(100vh-170px)] sm:max-h-[calc(100vh-160px)] font-mono select-none',
         isDragging && 'opacity-60 border-[var(--accent)]'
       )}
     >
@@ -80,8 +99,9 @@ export const ListCard: React.FC<ListCardProps> = ({ list, tasks }) => {
           <button
             {...attributes}
             {...listeners}
-            className="cursor-grab active:cursor-grabbing text-[var(--muted-3)] hover:text-[var(--fg)] p-0.5"
+            className="cursor-grab active:cursor-grabbing text-[var(--muted-3)] hover:text-[var(--fg)] p-1 min-w-[28px] min-h-[28px] flex items-center justify-center"
             title="Drag list"
+            aria-label="Drag list"
           >
             <GripVertical className="w-3.5 h-3.5" />
           </button>
@@ -103,48 +123,50 @@ export const ListCard: React.FC<ListCardProps> = ({ list, tasks }) => {
             />
           ) : (
             <h3
-              onDoubleClick={() => setIsEditingName(true)}
+              onClick={() => setIsEditingName(true)}
               className="text-xs font-bold font-heading uppercase tracking-tight text-[var(--fg)] truncate cursor-pointer"
-              title="Double click to rename"
+              title="Tap to rename"
             >
               {list.name}
             </h3>
           )}
 
-          <span className="text-[10px] font-bold text-[var(--muted-3)]">
+          <span className="text-[10px] font-bold text-[var(--muted-3)] flex-shrink-0">
             [{activeTasks.length}]
           </span>
         </div>
 
         {/* Action icons */}
-        <div className="flex items-center gap-1">
+        <div ref={menuRef} className="flex items-center gap-1 flex-shrink-0">
           <button
             onClick={() => setIsAdding(true)}
-            className="p-1 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
+            className="p-1.5 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer min-w-[32px] min-h-[32px] flex items-center justify-center"
             title="Add task"
+            aria-label="Add task"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-4 h-4" />
           </button>
 
           <div className="relative">
             <button
               onClick={() => setShowListMenu(!showListMenu)}
-              className="p-1 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer"
+              aria-label="List options"
+              className="p-1.5 text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--hover-bg)] transition-colors cursor-pointer min-w-[32px] min-h-[32px] flex items-center justify-center"
             >
-              <MoreHorizontal className="w-3.5 h-3.5" />
+              <MoreHorizontal className="w-4 h-4" />
             </button>
 
             {showListMenu && (
               <div
                 onClick={(e) => e.stopPropagation()}
-                className="absolute right-0 top-full mt-1 w-44 p-1 editorial-card editorial-border-thick text-xs z-50 font-mono"
+                className="absolute right-0 top-full mt-1 w-44 p-1 editorial-card editorial-border-thick text-xs z-50 font-mono shadow-2xl"
               >
                 <button
                   onClick={() => {
                     setShowColorPicker(!showColorPicker);
                     setShowListMenu(false);
                   }}
-                  className="flex items-center gap-2 w-full px-2 py-1.5 text-[var(--fg)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
+                  className="flex items-center gap-2 w-full px-2.5 py-2 text-[var(--fg)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   <Palette className="w-3.5 h-3.5" />
                   Change color
@@ -154,7 +176,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, tasks }) => {
                     setIsEditingName(true);
                     setShowListMenu(false);
                   }}
-                  className="flex items-center gap-2 w-full px-2 py-1.5 text-[var(--fg)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
+                  className="flex items-center gap-2 w-full px-2.5 py-2 text-[var(--fg)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   <span className="font-bold text-xs">A</span>
                   Rename
@@ -165,7 +187,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, tasks }) => {
                     deleteList(list.id);
                     setShowListMenu(false);
                   }}
-                  className="flex items-center gap-2 w-full px-2 py-1.5 text-[var(--accent)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
+                  className="flex items-center gap-2 w-full px-2.5 py-2 text-[var(--accent)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   Delete list
@@ -174,7 +196,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, tasks }) => {
             )}
 
             {showColorPicker && (
-              <div className="absolute right-0 top-full mt-1 p-2 editorial-card editorial-border-thick z-50 flex gap-1.5">
+              <div className="absolute right-0 top-full mt-1 p-2 editorial-card editorial-border-thick z-50 flex gap-2 shadow-2xl">
                 {LIST_COLORS.map((c) => (
                   <button
                     key={c.hex}
@@ -182,10 +204,10 @@ export const ListCard: React.FC<ListCardProps> = ({ list, tasks }) => {
                       updateList(list.id, { color: c.hex });
                       setShowColorPicker(false);
                     }}
-                    className="w-5 h-5 border-2 border-current transition-transform hover:scale-110 flex items-center justify-center cursor-pointer"
+                    className="w-7 h-7 border-2 border-current transition-transform hover:scale-110 flex items-center justify-center cursor-pointer"
                     style={{ backgroundColor: c.hex }}
                   >
-                    {list.color === c.hex && <Check className="w-3 h-3 text-white" />}
+                    {list.color === c.hex && <Check className="w-3.5 h-3.5 text-white stroke-[3]" />}
                   </button>
                 ))}
               </div>

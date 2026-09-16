@@ -12,9 +12,25 @@ interface TaskRowProps {
 export const TaskRow: React.FC<TaskRowProps> = ({ task, isDragging }) => {
   const { toggleTaskCompleted, toggleTaskStarred, deleteTask, lists, moveTask } = useBoard();
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (e: Event) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+    if (showMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [showMenu]);
 
   const overdue = isOverdue(task.due_date);
-
 
   const handleCheckboxClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -31,20 +47,24 @@ export const TaskRow: React.FC<TaskRowProps> = ({ task, isDragging }) => {
         isDragging && 'border-[var(--accent)] bg-[var(--hover-bg)] z-40'
       )}
     >
-      <div className="flex items-start gap-2.5">
-        {/* Exact Brutalist .task-box from HTML concept */}
+      <div className="flex items-start gap-2">
+        {/* Exact Brutalist .task-box with accessible 40px touch padding */}
         <button
           onClick={handleCheckboxClick}
           aria-label={task.completed ? 'Mark incomplete' : 'Mark complete'}
           type="button"
-          className={cn(
-            'task-box mt-0.5',
-            task.completed && 'done'
-          )}
-        />
+          className="w-10 h-10 -m-2 flex items-center justify-center cursor-pointer flex-shrink-0"
+        >
+          <span
+            className={cn(
+              'task-box',
+              task.completed && 'done'
+            )}
+          />
+        </button>
 
         {/* Task Title & Details */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 pt-0.5">
           <p
             className={cn(
               'text-xs leading-relaxed break-words font-mono',
@@ -92,19 +112,20 @@ export const TaskRow: React.FC<TaskRowProps> = ({ task, isDragging }) => {
         </div>
 
         {/* Action icons */}
-        <div className="flex items-center gap-1">
+        <div ref={menuRef} className="flex items-center gap-1 flex-shrink-0 pt-0.5">
           <button
             onClick={(e) => {
               e.stopPropagation();
               toggleTaskStarred(task.id);
             }}
             title={task.starred ? 'Starred' : 'Star'}
+            aria-label={task.starred ? 'Unstar task' : 'Star task'}
             className={cn(
-              'p-1 transition-colors cursor-pointer',
+              'w-8 h-8 flex items-center justify-center transition-colors cursor-pointer',
               task.starred ? 'text-[var(--accent)]' : 'text-[var(--muted-3)] hover:text-[var(--fg)]'
             )}
           >
-            <Star className={cn('w-3 h-3', task.starred && 'fill-current')} />
+            <Star className={cn('w-3.5 h-3.5', task.starred && 'fill-current')} />
           </button>
 
           <div className="relative">
@@ -114,15 +135,16 @@ export const TaskRow: React.FC<TaskRowProps> = ({ task, isDragging }) => {
                 setShowMenu(!showMenu);
               }}
               title="Options"
-              className="p-1 text-[var(--muted-3)] hover:text-[var(--fg)] transition-colors cursor-pointer"
+              aria-label="Task options"
+              className="w-8 h-8 flex items-center justify-center text-[var(--muted-3)] hover:text-[var(--fg)] transition-colors cursor-pointer"
             >
-              <MoreHorizontal className="w-3 h-3" />
+              <MoreHorizontal className="w-3.5 h-3.5" />
             </button>
 
             {showMenu && (
               <div
                 onClick={(e) => e.stopPropagation()}
-                className="absolute right-0 top-full mt-1 w-44 p-1 editorial-card editorial-border-thick text-xs z-50 font-mono"
+                className="absolute right-0 top-full mt-1 w-44 p-1 editorial-card editorial-border-thick text-xs z-50 font-mono shadow-2xl"
               >
                 <div className="px-2 py-1 text-[10px] uppercase font-bold text-[var(--muted-3)] tracking-wider">
                   Move to list
@@ -136,10 +158,10 @@ export const TaskRow: React.FC<TaskRowProps> = ({ task, isDragging }) => {
                         moveTask(task.id, l.id);
                         setShowMenu(false);
                       }}
-                      className="flex items-center justify-between w-full px-2 py-1.5 text-[var(--fg)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
+                      className="flex items-center justify-between w-full px-2.5 py-2 text-[var(--fg)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
                     >
                       <span className="truncate">{l.name}</span>
-                      <ArrowRight className="w-3 h-3" />
+                      <ArrowRight className="w-3 h-3 text-[var(--muted-3)] flex-shrink-0" />
                     </button>
                   ))}
                 <div className="my-1 editorial-border-t" />
@@ -148,10 +170,10 @@ export const TaskRow: React.FC<TaskRowProps> = ({ task, isDragging }) => {
                     deleteTask(task.id);
                     setShowMenu(false);
                   }}
-                  className="flex items-center gap-1.5 w-full px-2 py-1.5 text-[var(--accent)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
+                  className="flex items-center gap-2 w-full px-2.5 py-2 text-[var(--accent)] hover:bg-[var(--hover-bg)] text-left font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer"
                 >
-                  <Trash2 className="w-3 h-3" />
-                  Delete
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Delete task
                 </button>
               </div>
             )}

@@ -17,7 +17,7 @@ export const Toast: React.FC<ToastProps> = ({ toast, onDismiss }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.15 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[var(--bg)] text-[var(--fg)] border-3 border-[var(--line)] shadow-2xl w-[90vw] sm:w-auto min-w-[280px] sm:min-w-[320px] max-w-md"
+          className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-3.5 py-2.5 sm:px-4 sm:py-3 bg-[var(--bg)] text-[var(--fg)] border-3 border-[var(--line)] shadow-2xl w-[calc(100vw-24px)] sm:w-auto min-w-[280px] sm:min-w-[320px] max-w-md"
         >
           <div className="flex-shrink-0">
             {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-emerald-500 stroke-[2.5]" />}
@@ -36,16 +36,17 @@ export const Toast: React.FC<ToastProps> = ({ toast, onDismiss }) => {
                 toast.onUndo?.();
                 onDismiss();
               }}
-              className="editorial-btn-secondary flex items-center gap-1.5 py-1 px-2.5 text-[10px]"
+              className="editorial-btn-secondary flex items-center gap-1.5 min-h-[38px] px-3 text-[10px] cursor-pointer"
             >
-              <RotateCcw className="w-3 h-3 stroke-[2.5]" />
-              UNDO
+              <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>UNDO</span>
             </button>
           )}
 
           <button
             onClick={onDismiss}
-            className="text-[var(--muted)] hover:text-[var(--fg)] p-1 border border-transparent hover:border-[var(--line)] transition-colors cursor-pointer"
+            aria-label="Dismiss toast"
+            className="text-[var(--muted)] hover:text-[var(--fg)] min-w-[40px] min-h-[40px] flex items-center justify-center border border-transparent hover:border-[var(--line)] transition-colors cursor-pointer"
           >
             <X className="w-4 h-4 stroke-[2.5]" />
           </button>

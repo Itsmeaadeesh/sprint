@@ -24,26 +24,26 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)] flex flex-col font-mono selection:bg-[var(--accent)] selection:text-[var(--bg)]">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)] flex flex-col font-mono selection:bg-[var(--accent)] selection:text-[var(--bg)] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
       {/* Navigation */}
-      <nav className="grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center px-6 sm:px-10 py-6 editorial-border-b-thick">
-        <div className="font-heading text-xl tracking-tight">
+      <nav className="grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-10 py-3 sm:py-6 editorial-border-b-thick">
+        <div className="font-heading text-lg sm:text-xl tracking-tight">
           SPRINT⚡
         </div>
         <div className="hidden md:block text-[11px] uppercase tracking-wider text-center text-[var(--muted-3)]">
           No fluff. Just velocity.
         </div>
-        <div className="flex gap-4 justify-self-end text-xs items-center">
+        <div className="flex gap-2 sm:gap-4 justify-self-end text-xs items-center">
           <ThemeToggle />
           <button
             onClick={onNavigateLogin}
-            className="text-[var(--fg)] uppercase tracking-wider font-bold hover:underline cursor-pointer bg-transparent border-0"
+            className="text-[var(--fg)] uppercase tracking-wider font-bold hover:underline cursor-pointer bg-transparent border-0 min-h-[44px] px-2 flex items-center"
           >
             Log in
           </button>
           <button
             onClick={onNavigateSignup}
-            className="editorial-btn-secondary py-1.5 px-4 font-bold cursor-pointer"
+            className="editorial-btn-secondary py-2 px-3.5 sm:px-4 font-bold cursor-pointer min-h-[44px] flex items-center"
           >
             Sign up
           </button>
@@ -54,19 +54,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <div className="editorial-border-b-thick">
         <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr]">
           {/* Left Column */}
-          <div className="p-5 sm:p-14 lg:p-16 lg:editorial-border-r-thick relative flex flex-col justify-between">
+          <div className="p-4 sm:p-14 lg:p-16 lg:editorial-border-r-thick relative flex flex-col justify-between">
             {/* Spinning Stamp Motif */}
             <div className="hidden sm:flex stamp absolute top-10 right-6 md:right-10 pointer-events-none text-[var(--line)]">
               EST. 2026<br />100% REAL
             </div>
 
             <div>
-              <div className="text-xs uppercase tracking-widest flex items-center gap-2.5 mb-8 text-[var(--muted)]">
+              <div className="text-xs uppercase tracking-widest flex items-center gap-2.5 mb-6 sm:mb-8 text-[var(--muted)]">
                 <span className="w-2 h-2 rounded-full bg-[var(--accent)] inline-block" />
                 <span>Built for people who ship</span>
               </div>
 
-              <h1 className="text-[clamp(44px,5.4vw,90px)] font-heading leading-[0.92] uppercase tracking-tight text-[var(--fg)] mb-6">
+              <h1 className="text-[clamp(32px,7.5vw,90px)] font-heading leading-[0.95] uppercase tracking-tight text-[var(--fg)] mb-6 break-words">
                 Stop planning.<br />
                 <span
                   style={{
@@ -83,21 +83,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 your <span className="text-[var(--accent)]">damn</span> list.
               </h1>
 
-              <p className="max-w-md text-sm sm:text-base leading-relaxed text-[var(--muted)] mt-6">
+              <p className="max-w-md text-sm sm:text-base leading-relaxed text-[var(--muted)] mt-4 sm:mt-6">
                 Sprint is a task board with no patience for busywork. Multi-list, real-time, drag-and-drop — built to get out of your way.
               </p>
             </div>
 
-            <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-0">
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-0">
               <button
                 onClick={onNavigateSignup}
-                className="bg-[var(--fg)] text-[var(--bg)] px-6 sm:px-7 py-3.5 sm:py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white transition-colors cursor-pointer text-center"
+                className="bg-[var(--fg)] text-[var(--bg)] px-6 sm:px-7 py-3.5 sm:py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white transition-colors cursor-pointer text-center min-h-[44px] flex items-center justify-center"
               >
                 Get started →
               </button>
               <button
                 onClick={onNavigateLogin}
-                className="text-[var(--fg)] px-6 py-3.5 sm:py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick sm:border-l-0 hover:bg-[var(--hover-bg)] transition-colors cursor-pointer text-center"
+                className="text-[var(--fg)] px-6 py-3.5 sm:py-4 font-bold text-xs sm:text-sm uppercase tracking-wider editorial-border-thick sm:border-l-0 hover:bg-[var(--hover-bg)] transition-colors cursor-pointer text-center min-h-[44px] flex items-center justify-center"
               >
                 See it live
               </button>
@@ -107,28 +107,28 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           {/* Right Column: Stats & Live Interactive Demo */}
           <div className="flex flex-col">
             {/* Stat Block */}
-            <div className="p-6 sm:p-10 editorial-border-b-thick grid grid-cols-2 gap-4 sm:gap-6 bg-[var(--bg)]">
+            <div className="p-4 sm:p-10 editorial-border-b-thick grid grid-cols-2 gap-3 sm:gap-6 bg-[var(--bg)]">
               <div>
-                <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">4.2M</div>
-                <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Tasks completed</div>
+                <div className="font-heading text-2xl sm:text-4xl leading-none text-[var(--fg)]">4.2M</div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-1.5 sm:mt-2">Tasks completed</div>
               </div>
               <div>
-                <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">0.3s</div>
-                <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Avg sync time</div>
+                <div className="font-heading text-2xl sm:text-4xl leading-none text-[var(--fg)]">0.3s</div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-1.5 sm:mt-2">Avg sync time</div>
               </div>
               <div>
-                <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">18K</div>
-                <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Active builders</div>
+                <div className="font-heading text-2xl sm:text-4xl leading-none text-[var(--fg)]">18K</div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-1.5 sm:mt-2">Active builders</div>
               </div>
               <div>
-                <div className="font-heading text-3xl sm:text-4xl leading-none text-[var(--fg)]">100%</div>
-                <div className="text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-2">Your data, yours</div>
+                <div className="font-heading text-2xl sm:text-4xl leading-none text-[var(--fg)]">100%</div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--muted-2)] mt-1.5 sm:mt-2">Your data, yours</div>
               </div>
             </div>
 
             {/* Interactive Demo Board */}
-            <div className="p-5 sm:p-10 flex-1 flex flex-col justify-center">
-              <div className="text-[11px] uppercase tracking-widest text-[var(--muted-3)] mb-4 font-bold">
+            <div className="p-4 sm:p-10 flex-1 flex flex-col justify-center">
+              <div className="text-[10px] sm:text-[11px] uppercase tracking-widest text-[var(--muted-3)] mb-3 sm:mb-4 font-bold">
                 Try it — click to check off
               </div>
               <div className="space-y-0 editorial-border">
@@ -136,7 +136,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   <div
                     key={task.id}
                     onClick={() => toggleDemoTask(task.id)}
-                    className={`flex items-center gap-3 p-3.5 text-xs font-mono cursor-pointer transition-colors hover:bg-[var(--hover-bg)] ${
+                    className={`flex items-center gap-3 p-3.5 text-xs font-mono cursor-pointer transition-colors hover:bg-[var(--hover-bg)] min-h-[44px] ${
                       idx !== demoTasks.length - 1 ? 'editorial-border-b' : ''
                     } ${task.done ? 'text-[var(--gray-soft)] line-through' : 'text-[var(--fg)]'}`}
                   >

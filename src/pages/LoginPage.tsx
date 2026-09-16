@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Mail, Lock, AlertCircle } from 'lucide-react';
+import { Mail, Lock, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { ThemeToggle } from '../components/ui/ThemeToggle';
 
 interface LoginPageProps {
   onNavigateSignup: () => void;
@@ -16,6 +17,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   const { signInWithEmail, signInWithGoogle } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -54,14 +56,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)] flex flex-col font-mono selection:bg-[var(--accent)] selection:text-[var(--bg)]">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--fg)] flex flex-col font-mono selection:bg-[var(--accent)] selection:text-[var(--bg)] pt-[env(safe-area-inset-top)] pb-[calc(env(safe-area-inset-bottom)+1rem)]">
       {/* Top Bar */}
-      <nav className="flex items-center justify-between px-4 sm:px-10 py-4 sm:py-5 editorial-border-b-thick">
+      <nav className="flex items-center justify-between px-4 sm:px-10 py-3 sm:py-5 editorial-border-b-thick">
         <div className="font-heading text-lg tracking-tight">SPRINT⚡</div>
-        <div className="flex items-center gap-4 text-xs">
+        <div className="flex items-center gap-2 sm:gap-4 text-xs">
+          <ThemeToggle />
           <button
             onClick={onNavigateSignup}
-            className="text-[var(--fg)] uppercase tracking-wider font-bold hover:underline cursor-pointer bg-transparent border-0"
+            className="text-[var(--fg)] uppercase tracking-wider font-bold hover:underline cursor-pointer bg-transparent border-0 min-h-[44px] px-2 flex items-center"
           >
             Create account
           </button>
@@ -70,10 +73,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
       {/* Main Login Card */}
       <div className="flex-1 flex items-center justify-center p-3 sm:p-8">
-        <div className="w-full max-w-md bg-[var(--card-bg)] editorial-border-thick p-5 sm:p-8">
+        <div className="w-full max-w-md bg-[var(--card-bg)] editorial-border-thick p-4 sm:p-8">
           {/* Header */}
-          <div className="mb-8">
-            <div className="text-[11px] uppercase tracking-widest text-[var(--accent)] font-bold mb-2">
+          <div className="mb-6 sm:mb-8">
+            <div className="text-[10px] sm:text-[11px] uppercase tracking-widest text-[var(--accent)] font-bold mb-2">
               Authentication
             </div>
             <h1 className="font-heading text-2xl sm:text-3xl uppercase tracking-tight text-[var(--fg)]">
@@ -97,9 +100,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             onClick={handleGoogleSignIn}
             disabled={googleLoading}
             type="button"
-            className="w-full py-3 px-4 editorial-border font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-3 transition-colors mb-6 hover:bg-[var(--hover-bg)] cursor-pointer text-[var(--fg)]"
+            className="w-full py-3 px-4 editorial-border font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-3 transition-colors mb-6 hover:bg-[var(--hover-bg)] cursor-pointer text-[var(--fg)] min-h-[44px]"
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
               <path
                 fill="#EA4335"
                 d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
@@ -135,9 +138,13 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-[var(--muted-3)] absolute left-3 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-[var(--muted-3)] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  spellCheck={false}
                   placeholder="you@domain.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -155,39 +162,49 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                 <button
                   type="button"
                   onClick={onNavigateForgotPassword}
-                  className="text-[11px] uppercase tracking-wider text-[var(--muted-3)] hover:text-[var(--accent)] font-bold cursor-pointer"
+                  className="text-[11px] uppercase tracking-wider text-[var(--muted-3)] hover:text-[var(--accent)] font-bold cursor-pointer py-1 px-2 -mr-2"
                 >
                   Forgot?
                 </button>
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-[var(--muted-3)] absolute left-3 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-[var(--muted-3)] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  spellCheck={false}
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full pl-9 pr-3 py-2.5 editorial-input"
+                  className="w-full pl-9 pr-11 py-2.5 editorial-input"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  className="absolute right-0 top-0 bottom-0 w-11 flex items-center justify-center text-[var(--muted)] hover:text-[var(--fg)] cursor-pointer"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 mt-2 editorial-btn-primary cursor-pointer disabled:opacity-50"
+              className="w-full py-3.5 mt-2 editorial-btn-primary cursor-pointer disabled:opacity-50 min-h-[44px] flex items-center justify-center"
             >
               <span>{loading ? 'Authenticating...' : 'Sign In →'}</span>
             </button>
           </form>
 
           {/* Footer */}
-          <div className="mt-8 pt-6 border-t-2 border-[var(--line)] text-center text-xs text-[var(--muted)]">
+          <div className="mt-6 sm:mt-8 pt-6 border-t-2 border-[var(--line)] text-center text-xs text-[var(--muted)]">
             Don't have an account?{' '}
             <button
               onClick={onNavigateSignup}
-              className="text-[var(--fg)] hover:text-[var(--accent)] font-bold uppercase tracking-wider transition-colors cursor-pointer"
+              className="text-[var(--fg)] hover:text-[var(--accent)] font-bold uppercase tracking-wider transition-colors cursor-pointer py-1 px-1 inline-flex items-center"
             >
               Sign up
             </button>

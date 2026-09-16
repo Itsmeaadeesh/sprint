@@ -43,6 +43,8 @@
   html {
     scroll-behavior: smooth;
     background-color: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -51,8 +53,10 @@
     font-family: 'Space Mono', monospace;
     transition: background-color 0.2s ease, color 0.2s ease;
     overflow-x: hidden;
+    max-width: 100vw;
     margin: 0;
     padding: 0;
+    touch-action: manipulation;
   }
 
   ::selection {
@@ -192,21 +196,50 @@
   box-shadow: none !important;
 }
 
-/* Hard-edged Inputs */
+/* Hard-edged Inputs: 16px minimum on mobile prevents iOS auto-zoom */
+.editorial-input,
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px;
+}
+
+@media (min-width: 641px) {
+  .editorial-input,
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    font-size: 12px;
+  }
+}
+
 .editorial-input {
   background: var(--input-bg);
   border: var(--border-w) solid var(--line);
   color: var(--fg);
-  font-family: 'Space Mono', monospace;
-  font-size: 12px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   outline: none;
   box-shadow: none !important;
   transition: border-color 0.15s;
 }
 
+@media (min-width: 641px) {
+  .editorial-input {
+    padding: 8px 12px;
+  }
+}
+
 .editorial-input:focus {
   border-color: var(--accent);
+}
+
+/* Button Active Tap Feedback */
+.editorial-btn-primary:active,
+.editorial-btn-secondary:active,
+.editorial-btn-accent:active,
+button:active {
+  transform: scale(0.97);
 }
 
 /* Task Checkbox */
@@ -258,8 +291,11 @@
 /* Circular Theme Toggle matching HTML concept */
 .theme-toggle-btn {
   border: 2px solid var(--line) !important;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  position: relative;
   border-radius: 50% !important;
   background: transparent;
   color: var(--fg);
@@ -270,6 +306,12 @@
   justify-content: center;
   transition: background 0.15s, color 0.15s;
   font-family: 'Space Mono', monospace;
+}
+
+.theme-toggle-btn::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
 }
 
 .theme-toggle-btn:hover {

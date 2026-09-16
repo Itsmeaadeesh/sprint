@@ -12,6 +12,9 @@ import {
   AlertTriangle,
   ArrowLeft,
   LogOut,
+  Eye,
+  EyeOff,
+  X,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -32,6 +35,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
 
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [savingProfile, setSavingProfile] = useState(false);
   const [savingPassword, setSavingPassword] = useState(false);
@@ -120,13 +125,13 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
     )}&backgroundColor=ff3d00`;
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 max-w-4xl mx-auto w-full bg-[var(--bg)] text-[var(--fg)]">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 max-w-4xl mx-auto w-full bg-[var(--bg)] text-[var(--fg)] pt-[calc(env(safe-area-inset-top)+1rem)] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
       {/* Top Breadcrumb Back */}
       <button
         onClick={onBackToBoard}
-        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--muted)] hover:text-[var(--fg)] transition-colors mb-6 cursor-pointer border-b-2 border-transparent hover:border-[var(--fg)] pb-0.5"
+        className="inline-flex items-center gap-2 min-h-[44px] text-xs font-bold uppercase tracking-wider text-[var(--muted)] hover:text-[var(--fg)] transition-colors mb-4 sm:mb-6 cursor-pointer border-b-2 border-transparent hover:border-[var(--fg)]"
       >
-        <ArrowLeft className="w-3.5 h-3.5 stroke-[2.5]" />
+        <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
         <span>Back to Board</span>
       </button>
 
@@ -254,18 +259,18 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                 <button
                   type="button"
                   onClick={() => setShowLogoutModal(true)}
-                  className="editorial-btn-secondary flex items-center gap-2 cursor-pointer"
+                  className="editorial-btn-secondary min-h-[44px] px-4 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <LogOut className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <LogOut className="w-4 h-4 stroke-[2.5]" />
                   <span>Log Out</span>
                 </button>
 
                 <button
                   type="submit"
                   disabled={savingProfile}
-                  className="editorial-btn-primary flex items-center gap-2 cursor-pointer"
+                  className="editorial-btn-primary min-h-[44px] px-4 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Save className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <Save className="w-4 h-4 stroke-[2.5]" />
                   <span>{savingProfile ? 'Saving...' : 'Save Profile'}</span>
                 </button>
               </div>
@@ -289,7 +294,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-md">
             <button
               onClick={() => setTheme('dark')}
-              className={`p-3.5 sm:p-4 border-2 text-left transition-all cursor-pointer flex items-center gap-3 ${
+              className={`p-3.5 sm:p-4 min-h-[52px] border-2 text-left transition-all cursor-pointer flex items-center gap-3 ${
                 theme === 'dark'
                   ? 'border-[var(--accent)] bg-[var(--line)] text-[var(--bg)] font-bold'
                   : 'border-[var(--line)] bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--fg)] hover:border-[var(--fg)]'
@@ -304,7 +309,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
 
             <button
               onClick={() => setTheme('light')}
-              className={`p-3.5 sm:p-4 border-2 text-left transition-all cursor-pointer flex items-center gap-3 ${
+              className={`p-3.5 sm:p-4 min-h-[52px] border-2 text-left transition-all cursor-pointer flex items-center gap-3 ${
                 theme === 'light'
                   ? 'border-[var(--accent)] bg-[var(--line)] text-[var(--bg)] font-bold'
                   : 'border-[var(--line)] bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--fg)] hover:border-[var(--fg)]'
@@ -334,30 +339,54 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
               <label className="block text-xs font-bold uppercase tracking-wider text-[var(--fg)] mb-1.5">
                 New Password
               </label>
-              <input
-                type="password"
-                placeholder="At least 6 characters"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-                minLength={6}
-                className="editorial-input w-full text-xs"
-              />
+              <div className="relative">
+                <input
+                  type={showNewPassword ? 'text' : 'password'}
+                  placeholder="At least 6 characters"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  autoComplete="new-password"
+                  spellCheck={false}
+                  className="editorial-input w-full pr-12 text-sm sm:text-xs"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  aria-label={showNewPassword ? 'Hide password' : 'Show password'}
+                  className="absolute right-0 top-0 bottom-0 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--fg)] transition-colors cursor-pointer"
+                >
+                  {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-[var(--fg)] mb-1.5">
                 Confirm New Password
               </label>
-              <input
-                type="password"
-                placeholder="Repeat new password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                minLength={6}
-                className="editorial-input w-full text-xs"
-              />
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="Repeat new password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  autoComplete="new-password"
+                  spellCheck={false}
+                  className="editorial-input w-full pr-12 text-sm sm:text-xs"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                  className="absolute right-0 top-0 bottom-0 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--fg)] transition-colors cursor-pointer"
+                >
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <div className="flex items-center justify-between pt-2">
@@ -373,7 +402,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
               <button
                 type="submit"
                 disabled={savingPassword || !newPassword}
-                className="editorial-btn-secondary"
+                className="editorial-btn-secondary min-h-[44px] px-4 cursor-pointer"
               >
                 {savingPassword ? 'Updating...' : 'Update Password'}
               </button>
@@ -396,7 +425,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
 
           <button
             onClick={() => setShowDeleteModal(true)}
-            className="border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+            className="border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 min-h-[44px] text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center"
           >
             Delete Account
           </button>
@@ -405,22 +434,36 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
 
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
+        <div
+          onClick={() => setShowLogoutModal(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-[2px]"
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md bg-[var(--bg)] border-3 border-[var(--line)] p-6 shadow-2xl relative text-[var(--fg)]"
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md bg-[var(--bg)] border-3 border-[var(--line)] p-5 sm:p-6 shadow-2xl relative text-[var(--fg)] max-h-[90vh] overflow-y-auto"
           >
-            <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[var(--line)]">
-              <div className="w-8 h-8 border-2 border-[var(--line)] flex items-center justify-center text-[var(--fg)] bg-[var(--surface)]">
-                <LogOut className="w-4 h-4 stroke-[2.5]" />
+            <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b-2 border-[var(--line)]">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 border-2 border-[var(--line)] flex items-center justify-center text-[var(--fg)] bg-[var(--surface)]">
+                  <LogOut className="w-4 h-4 stroke-[2.5]" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-sm font-black uppercase tracking-wider text-[var(--fg)]">
+                    Log Out
+                  </h3>
+                  <p className="text-[11px] font-bold uppercase text-[var(--muted)]">Session Termination</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-heading text-sm font-black uppercase tracking-wider text-[var(--fg)]">
-                  Log Out
-                </h3>
-                <p className="text-[11px] font-bold uppercase text-[var(--muted)]">Session Termination</p>
-              </div>
+
+              <button
+                onClick={() => setShowLogoutModal(false)}
+                aria-label="Close modal"
+                className="min-w-[40px] min-h-[40px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--fg)] cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
             <p className="text-xs text-[var(--muted)] mb-6 leading-relaxed">
@@ -432,7 +475,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                 type="button"
                 onClick={() => setShowLogoutModal(false)}
                 disabled={loggingOut}
-                className="editorial-btn-secondary cursor-pointer"
+                className="editorial-btn-secondary min-h-[44px] px-4 cursor-pointer"
               >
                 Cancel
               </button>
@@ -440,9 +483,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
                 type="button"
                 onClick={handleConfirmLogout}
                 disabled={loggingOut}
-                className="editorial-btn-secondary bg-[var(--surface)] hover:bg-[var(--hover-bg)] flex items-center gap-2 cursor-pointer"
+                className="editorial-btn-secondary min-h-[44px] px-4 bg-[var(--surface)] hover:bg-[var(--hover-bg)] flex items-center gap-2 cursor-pointer"
               >
-                <LogOut className="w-3.5 h-3.5 stroke-[2.5]" />
+                <LogOut className="w-4 h-4 stroke-[2.5]" />
                 <span>{loggingOut ? 'Logging out...' : 'Log Out'}</span>
               </button>
             </div>
@@ -452,22 +495,36 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
+        <div
+          onClick={() => setShowDeleteModal(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-[2px]"
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md bg-[var(--bg)] border-3 border-red-500 p-6 shadow-2xl relative text-[var(--fg)]"
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md bg-[var(--bg)] border-3 border-red-500 p-5 sm:p-6 shadow-2xl relative text-[var(--fg)] max-h-[90vh] overflow-y-auto"
           >
-            <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[var(--line)]">
-              <div className="w-8 h-8 border-2 border-red-500 flex items-center justify-center text-red-500 bg-red-500/10">
-                <AlertTriangle className="w-4 h-4 stroke-[2.5]" />
+            <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b-2 border-[var(--line)]">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 border-2 border-red-500 flex items-center justify-center text-red-500 bg-red-500/10">
+                  <AlertTriangle className="w-4 h-4 stroke-[2.5]" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-sm font-black uppercase tracking-wider text-red-500">
+                    Delete Account?
+                  </h3>
+                  <p className="text-[11px] font-bold uppercase text-[var(--muted)]">Permanent data loss</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-heading text-sm font-black uppercase tracking-wider text-red-500">
-                  Delete Account?
-                </h3>
-                <p className="text-[11px] font-bold uppercase text-[var(--muted)]">Permanent data loss</p>
-              </div>
+
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                aria-label="Close modal"
+                className="min-w-[40px] min-h-[40px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--fg)] cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
             <p className="text-xs text-[var(--muted)] mb-6 leading-relaxed">
@@ -477,14 +534,14 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onBackToBoard }) => 
             <div className="flex items-center justify-end gap-3 pt-3 border-t-2 border-[var(--line)]">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="editorial-btn-secondary"
+                className="editorial-btn-secondary min-h-[44px] px-4 cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDeleteAccount}
                 disabled={deleting}
-                className="bg-red-600 hover:bg-red-700 text-white border-2 border-red-600 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                className="bg-red-600 hover:bg-red-700 text-white border-2 border-red-600 px-4 py-2 min-h-[44px] text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center"
               >
                 {deleting ? 'Deleting...' : 'Confirm Delete'}
               </button>

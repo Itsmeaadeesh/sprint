@@ -155,8 +155,8 @@ export const BoardView: React.FC<BoardViewProps> = ({ onCreateListModalOpen }) =
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex-1 overflow-x-auto overflow-y-hidden p-3 sm:p-6 font-mono snap-x snap-mandatory sm:snap-none">
-        <div className="flex items-start gap-4 sm:gap-5 min-w-max pb-4">
+      <div className="flex-1 overflow-x-auto overflow-y-hidden p-3 sm:p-6 font-mono snap-x snap-mandatory sm:snap-none touch-pan-x">
+        <div className="flex items-start gap-4 sm:gap-5 min-w-max pb-20 sm:pb-4">
           <SortableContext
             items={displayedLists.map((l) => l.id)}
             strategy={horizontalListSortingStrategy}

@@ -20,13 +20,17 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70">
+        <div
+          onClick={onClose}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-[2px]"
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="w-full max-w-md editorial-card shadow-2xl p-4 sm:p-6 relative bg-[var(--bg)] text-[var(--fg)]"
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md editorial-card shadow-2xl p-4 sm:p-6 relative bg-[var(--bg)] text-[var(--fg)] max-h-[90vh] overflow-y-auto"
           >
             <div className="flex items-center justify-between pb-3 mb-4 border-b-2 border-[var(--line)]">
               <div className="flex items-center gap-2">
@@ -42,7 +46,8 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
               </div>
               <button
                 onClick={onClose}
-                className="p-1 border border-transparent hover:border-[var(--line)] text-[var(--muted)] hover:text-[var(--fg)] transition-colors cursor-pointer"
+                aria-label="Close modal"
+                className="min-w-[40px] min-h-[40px] flex items-center justify-center border border-transparent hover:border-[var(--line)] text-[var(--muted)] hover:text-[var(--fg)] transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4 stroke-[2.5]" />
               </button>
@@ -62,7 +67,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
                   />
                   <button
                     onClick={handleCopy}
-                    className="editorial-btn-secondary flex items-center gap-1.5"
+                    className="editorial-btn-secondary min-h-[44px] px-3.5 flex items-center gap-1.5 cursor-pointer"
                   >
                     {copied ? <Check className="w-4 h-4 text-emerald-500 stroke-[3]" /> : <Copy className="w-4 h-4 stroke-[2.5]" />}
                     <span>{copied ? 'COPIED' : 'COPY'}</span>
@@ -84,7 +89,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose }) => {
             <div className="flex items-center justify-end pt-4 mt-4 border-t-2 border-[var(--line)]">
               <button
                 onClick={onClose}
-                className="editorial-btn-primary"
+                className="editorial-btn-primary min-h-[44px] px-6 cursor-pointer"
               >
                 Done
               </button>
